@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<!-- saved from url=(0096)file:///c%3A/Users/Hype%20GLK/Downloads/Data%20Retail%20Orders/Retail_Orders_Dashboard_2025.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retail Orders Analysis 2025</title>
+<script src="./Retail Orders Analysis 2025_files/chart.js.download"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --baby-blue:#B9DDF8;--ice:#EAF4FF;--pastel:#D5EAFE;--sky:#7FB6E8;
+    --navy:#426A91;--white:#FFFFFF;--bg:#F7FAFF;--text:#25364A;--muted:#718096;
+    --sidebar-w:230px;--card-r:12px;
+  }
+  body{font-family:-apple-system,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
+  /* SIDEBAR */
+  #sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:linear-gradient(180deg,#2f5070 0%,var(--navy) 100%);display:flex;flex-direction:column;z-index:100;overflow-y:auto}
+  #sidebar .logo{padding:22px 20px 14px;border-bottom:1px solid rgba(255,255,255,0.12)}
+  #sidebar .logo h1{color:#fff;font-size:15px;font-weight:700;letter-spacing:0.3px;line-height:1.3}
+  #sidebar .logo p{color:rgba(255,255,255,0.55);font-size:11px;margin-top:3px}
+  #sidebar nav{flex:1;padding:12px 0}
+  #sidebar nav a{display:flex;align-items:center;gap:10px;padding:10px 20px;color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;font-weight:500;border-left:3px solid transparent;transition:all 0.15s}
+  #sidebar nav a:hover{background:rgba(255,255,255,0.08);color:#fff}
+  #sidebar nav a.active{background:rgba(185,221,248,0.18);color:#B9DDF8;border-left-color:#B9DDF8}
+  #sidebar nav a .icon{width:18px;text-align:center;font-size:15px}
+  #sidebar .filters-section{padding:14px 16px;border-top:1px solid rgba(255,255,255,0.12)}
+  #sidebar .filters-section h3{color:rgba(255,255,255,0.5);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+  #sidebar .filter-group{margin-bottom:8px}
+  #sidebar .filter-group label{color:rgba(255,255,255,0.6);font-size:11px;display:block;margin-bottom:3px}
+  #sidebar .filter-group select{width:100%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:5px 8px;border-radius:6px;font-size:12px;cursor:pointer}
+  #sidebar .filter-group select option{background:#2f5070;color:#fff}
+  #sidebar .filter-group select[multiple]{height:64px}
+  #reset-btn{width:calc(100% - 0px);margin:6px 0 2px;padding:7px;background:rgba(185,221,248,0.2);border:1px solid rgba(185,221,248,0.4);color:#B9DDF8;border-radius:7px;cursor:pointer;font-size:12px;font-weight:600;transition:all 0.15s}
+  #reset-btn:hover{background:rgba(185,221,248,0.35)}
+  /* MAIN */
+  #main{margin-left:var(--sidebar-w);min-height:100vh;padding:0}
+  .page{display:none;padding:28px 28px 40px;animation:fadein 0.2s ease}
+  .page.active{display:block}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  /* TOP BAR */
+  .topbar{background:var(--white);border-bottom:1px solid #dce9f5;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+  .topbar h2{font-size:17px;font-weight:700;color:var(--text)}
+  .topbar .meta{font-size:12px;color:var(--muted)}
+  /* GRID */
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:24px}
+  .kpi-card{background:var(--white);border-radius:var(--card-r);padding:18px 16px;box-shadow:0 1px 4px rgba(66,106,145,0.08);border:1px solid #dce9f5}
+  .kpi-card .label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+  .kpi-card .value{font-size:22px;font-weight:700;color:var(--navy)}
+  .kpi-card .sub{font-size:11px;color:var(--muted);margin-top:3px}
+  .kpi-card .accent-bar{height:3px;border-radius:2px;background:linear-gradient(90deg,var(--sky),var(--baby-blue));margin-top:12px}
+  /* CHARTS */
+  .chart-grid{display:grid;gap:18px}
+  .chart-grid.cols2{grid-template-columns:1fr 1fr}
+  .chart-grid.cols3{grid-template-columns:1fr 1fr 1fr}
+  .chart-card{background:var(--white);border-radius:var(--card-r);padding:18px;box-shadow:0 1px 4px rgba(66,106,145,0.08);border:1px solid #dce9f5}
+  .chart-card h3{font-size:13px;font-weight:700;color:var(--text);margin-bottom:14px}
+  .chart-card .chart-wrap{position:relative}
+  /* INSIGHTS */
+  .insights-card{background:var(--ice);border:1px solid var(--baby-blue);border-radius:var(--card-r);padding:18px 20px;margin-bottom:22px}
+  .insights-card h3{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px}
+  .insights-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+  .insight-item{background:var(--white);border-radius:8px;padding:10px 12px;border:1px solid #dce9f5}
+  .insight-item .i-label{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.4px}
+  .insight-item .i-val{font-size:13px;font-weight:700;color:var(--navy);margin-top:2px}
+  .insight-item .i-num{font-size:11px;color:var(--sky)}
+  /* TABLE */
+  .table-controls{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+  .table-controls input{flex:1;min-width:200px;padding:8px 12px;border:1px solid #dce9f5;border-radius:8px;font-size:13px;outline:none}
+  .table-controls input:focus{border-color:var(--sky)}
+  .table-controls button{padding:8px 14px;border-radius:8px;border:1px solid #dce9f5;background:var(--white);cursor:pointer;font-size:12px;font-weight:600;color:var(--navy);transition:all 0.15s}
+  .table-controls button:hover{background:var(--ice);border-color:var(--sky)}
+  .export-btn{background:var(--navy)!important;color:#fff!important;border-color:var(--navy)!important}
+  .export-btn:hover{background:#2f5070!important}
+  .table-info{font-size:12px;color:var(--muted);margin-bottom:10px}
+  .table-wrap{overflow-x:auto;border-radius:10px;border:1px solid #dce9f5}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  thead th{background:var(--ice);padding:10px 12px;text-align:left;font-weight:700;color:var(--navy);white-space:nowrap;border-bottom:1px solid #dce9f5;cursor:pointer;user-select:none}
+  thead th:hover{background:var(--pastel)}
+  thead th .sort-icon{margin-left:4px;color:var(--sky)}
+  tbody tr{border-bottom:1px solid #f0f5fb;transition:background 0.1s}
+  tbody tr:hover{background:var(--ice)}
+  tbody td{padding:8px 12px;white-space:nowrap}
+  .pagination{display:flex;align-items:center;gap:6px;margin-top:14px;flex-wrap:wrap}
+  .pagination button{padding:5px 10px;border:1px solid #dce9f5;border-radius:6px;background:var(--white);cursor:pointer;font-size:12px;color:var(--navy)}
+  .pagination button.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .pagination button:hover:not(.active){background:var(--ice)}
+  .pagination .page-info{font-size:12px;color:var(--muted);margin:0 6px}
+  /* DATA QUALITY */
+  .dq-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .dq-card{background:var(--white);border-radius:var(--card-r);padding:20px;border:1px solid #dce9f5;box-shadow:0 1px 4px rgba(66,106,145,0.07)}
+  .dq-card h3{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #eef3f8}
+  .dq-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f5f8fc}
+  .dq-row:last-child{border-bottom:none}
+  .dq-key{font-size:12.5px;color:var(--muted)}
+  .dq-val{font-size:12.5px;font-weight:700;color:var(--text)}
+  .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+  .badge-green{background:#e6f9f1;color:#1a7a4a}
+  .badge-blue{background:var(--ice);color:var(--navy)}
+  /* SECTION TITLE */
+  .section-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--baby-blue)}
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    :root{--sidebar-w:200px}
+    .chart-grid.cols2,.chart-grid.cols3{grid-template-columns:1fr}
+    .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:650px){
+    :root{--sidebar-w:0px}
+    #sidebar{display:none}
+    .kpi-grid{grid-template-columns:1fr 1fr}
+  }
+  .no-data{text-align:center;padding:40px;color:var(--muted);font-size:13px}
+  .tag{display:inline-block;padding:2px 7px;border-radius:6px;font-size:11px;font-weight:600;background:var(--ice);color:var(--navy)}
+  .mb16{margin-bottom:16px}
+  .mb24{margin-bottom:24px}
+  .full-width{grid-column:1/-1}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div class="logo">
+    <h1>🛍 Retail Orders<br>Analysis 2025</h1>
+    <p>Indonesian Retail Dataset</p>
+  </div>
+  <nav>
+    <a href="file:///c%3A/Users/Hype%20GLK/Downloads/Data%20Retail%20Orders/Retail_Orders_Dashboard_2025.html#" class="active" data-page="overview"><span class="icon">📊</span>Overview</a>
+    <a href="file:///c%3A/Users/Hype%20GLK/Downloads/Data%20Retail%20Orders/Retail_Orders_Dashboard_2025.html#" data-page="sales"><span class="icon">📈</span>Sales Performance</a>
+    <a href="file:///c%3A/Users/Hype%20GLK/Downloads/Data%20Retail%20Orders/Retail_Orders_Dashboard_2025.html#" data-page="products"><span class="icon">📦</span>Product Analysis</a>
+    <a href="file:///c%3A/Users/Hype%20GLK/Downloads/Data%20Retail%20Orders/Retail_Orders_Dashboard_2025.html#" data-page="geo"><span class="icon">🗺</span>Geographic</a>
+    <a href="file:///c%3A/Users/Hype%20GLK/Downloads/Data%20Retail%20Orders/Retail_Orders_Dashboard_2025.html#" data-page="customer"><span class="icon">👤</span>Customer &amp; Payment</a>
+    <a href="file:///c%3A/Users/Hype%20GLK/Downloads/Data%20Retail%20Orders/Retail_Orders_Dashboard_2025.html#" data-page="channel"><span class="icon">📡</span>Channel &amp; Associate</a>
+    <a href="file:///c%3A/Users/Hype%20GLK/Downloads/Data%20Retail%20Orders/Retail_Orders_Dashboard_2025.html#" data-page="discount"><span class="icon">🏷</span>Discount Analysis</a>
+    <a href="file:///c%3A/Users/Hype%20GLK/Downloads/Data%20Retail%20Orders/Retail_Orders_Dashboard_2025.html#" data-page="explorer"><span class="icon">🔍</span>Transaction Explorer</a>
+    <a href="file:///c%3A/Users/Hype%20GLK/Downloads/Data%20Retail%20Orders/Retail_Orders_Dashboard_2025.html#" data-page="quality"><span class="icon">✅</span>Data Quality</a>
+  </nav>
+  <div class="filters-section">
+    <h3>Global Filters</h3>
+    <div class="filter-group">
+      <label>From Month</label>
+      <select id="f-month-from">
+        <option value="1">Jan 2025</option><option value="2">Feb 2025</option>
+        <option value="3">Mar 2025</option><option value="4">Apr 2025</option>
+        <option value="5">May 2025</option><option value="6">Jun 2025</option>
+        <option value="7">Jul 2025</option><option value="8">Aug 2025</option>
+        <option value="9">Sep 2025</option><option value="10">Oct 2025</option>
+        <option value="11">Nov 2025</option><option value="12">Dec 2025</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>To Month</label>
+      <select id="f-month-to">
+        <option value="1">Jan 2025</option><option value="2">Feb 2025</option>
+        <option value="3">Mar 2025</option><option value="4">Apr 2025</option>
+        <option value="5">May 2025</option><option value="6">Jun 2025</option>
+        <option value="7">Jul 2025</option><option value="8">Aug 2025</option>
+        <option value="9">Sep 2025</option><option value="10">Oct 2025</option>
+        <option value="11">Nov 2025</option><option value="12" selected="">Dec 2025</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>City</label>
+      <select id="f-city" multiple=""><option value="">All Cities</option><option value="Bandung">Bandung</option><option value="Jakarta">Jakarta</option><option value="Makassar">Makassar</option><option value="Medan">Medan</option><option value="Surabaya">Surabaya</option><option value="Yogyakarta">Yogyakarta</option></select>
+    </div>
+    <div class="filter-group">
+      <label>Department</label>
+      <select id="f-dept" multiple=""><option value="">All Departments</option><option value="Groceries">Groceries</option><option value="Home &amp; Living">Home &amp; Living</option><option value="Outdoor">Outdoor</option><option value="Personal Care">Personal Care</option><option value="Pet Supplies">Pet Supplies</option><option value="Technology">Technology</option></select>
+    </div>
+    <div class="filter-group">
+      <label>Buyer Segment</label>
+      <select id="f-segment">
+        <option value="">All Segments</option>
+        <option value="Repeat">Repeat</option>
+        <option value="First-time">First-time</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Payment Type</label>
+      <select id="f-payment"><option value="">All</option><option value="Bank Transfer">Bank Transfer</option><option value="Cash">Cash</option><option value="Credit Card">Credit Card</option><option value="Debit Card">Debit Card</option><option value="E-Wallet">E-Wallet</option><option value="QRIS">QRIS</option></select>
+    </div>
+    <div class="filter-group">
+      <label>Order Source</label>
+      <select id="f-source"><option value="">All</option><option value="Marketplace">Marketplace</option><option value="Physical Store">Physical Store</option><option value="Social Commerce">Social Commerce</option></select>
+    </div>
+    <div class="filter-group">
+      <label>Sales Associate</label>
+      <select id="f-associate"><option value="">All</option><option value="Bima Kurniawan">Bima Kurniawan</option><option value="Dimas Saputra">Dimas Saputra</option><option value="Fajar Ramadhan">Fajar Ramadhan</option><option value="Intan Permata">Intan Permata</option><option value="Nadia Putri">Nadia Putri</option><option value="Rafi Pratama">Rafi Pratama</option><option value="Salsa Maharani">Salsa Maharani</option></select>
+    </div>
+    <button id="reset-btn">↺ Reset All Filters</button>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="main">
+
+  <!-- OVERVIEW PAGE -->
+  <div class="page active" id="page-overview">
+    <div class="topbar"><h2>📊 Overview Dashboard</h2><span class="meta">FY 2025 · 420 Transactions · 6 Indonesian Cities</span></div>
+    <div style="padding:24px 28px 0">
+      <div class="kpi-grid" id="kpi-overview">
+    <div class="kpi-card"><div class="label">Total Net Sales</div><div class="value">$88,586.95</div><div class="sub">420 orders</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Total Orders</div><div class="value">420</div><div class="sub">unique transactions</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Total Units Sold</div><div class="value">1.552</div><div class="sub">across all items</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Avg Order Value</div><div class="value">$210.92</div><div class="sub">per transaction</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Avg Price/Unit</div><div class="value">$57.08</div><div class="sub">net revenue per unit</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Total Discount</div><div class="value">$6,103.96</div><div class="sub">gross discount applied</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Cities</div><div class="value">6</div><div class="sub">distinct locations</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Departments</div><div class="value">6</div><div class="sub">product categories</div><div class="accent-bar"></div></div>
+  </div>
+      <div class="insights-card">
+        <h3>🔍 Smart Insights</h3>
+        <div class="insights-grid" id="insights-grid">
+    <div class="insight-item"><div class="i-label">Top Month</div><div class="i-val">Jun</div><div class="i-num">$11,539.11</div></div>
+    <div class="insight-item"><div class="i-label">Bottom Month</div><div class="i-val">May</div><div class="i-num">$3,425.23</div></div>
+    <div class="insight-item"><div class="i-label">Top Department</div><div class="i-val">Technology</div><div class="i-num">$45,672.81</div></div>
+    <div class="insight-item"><div class="i-label">Top Item</div><div class="i-val">Tablet</div><div class="i-num">$21,727.95</div></div>
+    <div class="insight-item"><div class="i-label">Top City</div><div class="i-val">Yogyakarta</div><div class="i-num">$19,762.44</div></div>
+    <div class="insight-item"><div class="i-label">Top Payment</div><div class="i-val">E-Wallet</div><div class="i-num">$20,719.73</div></div>
+    <div class="insight-item"><div class="i-label">Top Source</div><div class="i-val">Physical Store</div><div class="i-num">$34,547.98</div></div>
+    <div class="insight-item"><div class="i-label">Top Segment</div><div class="i-val">Repeat</div><div class="i-num">$57,111.64</div></div>
+    <div class="insight-item"><div class="i-label">Top Associate</div><div class="i-val">Salsa Maharani</div><div class="i-num">$17,085.89</div></div>
+  </div>
+      </div>
+      <div class="chart-grid cols2 mb24">
+        <div class="chart-card full-width"><h3>Monthly Net Sales Trend</h3><div class="chart-wrap" style="height:240px"><canvas id="chart-monthly-sales" width="1089" height="160" style="display: block; box-sizing: border-box; height: 240px; width: 1633.6px;"></canvas></div></div>
+      </div>
+      <div class="chart-grid cols2 mb24">
+        <div class="chart-card"><h3>Net Sales by Department</h3><div class="chart-wrap" style="height:240px"><canvas id="chart-dept-overview" width="525" height="160" style="display: block; box-sizing: border-box; height: 240px; width: 788.3px;"></canvas></div></div>
+        <div class="chart-card"><h3>Net Sales by City</h3><div class="chart-wrap" style="height:240px"><canvas id="chart-city-overview" width="525" height="160" style="display: block; box-sizing: border-box; height: 240px; width: 788.3px;"></canvas></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SALES PERFORMANCE PAGE -->
+  <div class="page" id="page-sales">
+    <div class="topbar"><h2>📈 Sales Performance</h2><span class="meta">Monthly &amp; Growth Analysis</span></div>
+    <div style="padding:24px 28px 0">
+      <div class="chart-grid mb24">
+        <div class="chart-card"><h3>Monthly Net Sales (Line)</h3><div class="chart-wrap" style="height:260px"><canvas id="chart-sales-line" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+      <div class="chart-grid cols2 mb24">
+        <div class="chart-card"><h3>Monthly Order Volume</h3><div class="chart-wrap" style="height:240px"><canvas id="chart-order-vol" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+        <div class="chart-card"><h3>Month-over-Month Growth (%)</h3><div class="chart-wrap" style="height:240px"><canvas id="chart-mom-growth" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+      <div class="chart-grid mb24">
+        <div class="chart-card"><h3>Cumulative Net Sales (Area)</h3><div class="chart-wrap" style="height:240px"><canvas id="chart-cumulative" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+      <div class="chart-grid cols2 mb24">
+        <div class="chart-card"><h3>Monthly Units Sold</h3><div class="chart-wrap" style="height:220px"><canvas id="chart-monthly-units" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+        <div class="chart-card"><h3>Monthly Avg Order Value</h3><div class="chart-wrap" style="height:220px"><canvas id="chart-monthly-aov" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT ANALYSIS PAGE -->
+  <div class="page" id="page-products">
+    <div class="topbar"><h2>📦 Product Analysis</h2><span class="meta">Department &amp; Item Breakdown</span></div>
+    <div style="padding:24px 28px 0">
+      <div class="chart-grid cols2 mb24">
+        <div class="chart-card"><h3>Net Sales by Department</h3><div class="chart-wrap" style="height:260px"><canvas id="chart-dept-bar" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+        <div class="chart-card"><h3>Orders by Department</h3><div class="chart-wrap" style="height:260px"><canvas id="chart-dept-orders" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+      <div class="chart-grid cols2 mb24">
+        <div class="chart-card"><h3>Top 5 Items by Net Sales</h3><div class="chart-wrap" style="height:220px"><canvas id="chart-top5" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+        <div class="chart-card"><h3>Bottom 5 Items by Net Sales</h3><div class="chart-wrap" style="height:220px"><canvas id="chart-bot5" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+      <div class="chart-grid mb24">
+        <div class="chart-card"><h3>Net Sales by Item (All)</h3><div class="chart-wrap" style="height:320px"><canvas id="chart-items-all" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GEOGRAPHIC PAGE -->
+  <div class="page" id="page-geo">
+    <div class="topbar"><h2>🗺 Geographic Analysis</h2><span class="meta">City-level Performance</span></div>
+    <div style="padding:24px 28px 0">
+      <div class="kpi-grid" id="kpi-geo">
+    <div class="kpi-card"><div class="label">Yogyakarta</div><div class="value">$19,762.44</div><div class="sub">68 orders · 268 units · AOV $290.62</div><div class="accent-bar"></div></div>
+  
+    <div class="kpi-card"><div class="label">Bandung</div><div class="value">$18,591.14</div><div class="sub">70 orders · 270 units · AOV $265.59</div><div class="accent-bar"></div></div>
+  
+    <div class="kpi-card"><div class="label">Makassar</div><div class="value">$15,205.00</div><div class="sub">71 orders · 246 units · AOV $214.15</div><div class="accent-bar"></div></div>
+  
+    <div class="kpi-card"><div class="label">Jakarta</div><div class="value">$14,241.24</div><div class="sub">73 orders · 276 units · AOV $195.09</div><div class="accent-bar"></div></div>
+  
+    <div class="kpi-card"><div class="label">Surabaya</div><div class="value">$10,557.46</div><div class="sub">69 orders · 242 units · AOV $153.01</div><div class="accent-bar"></div></div>
+  
+    <div class="kpi-card"><div class="label">Medan</div><div class="value">$10,229.67</div><div class="sub">69 orders · 250 units · AOV $148.26</div><div class="accent-bar"></div></div>
+  </div>
+      <div class="chart-grid cols2 mb24">
+        <div class="chart-card"><h3>Net Sales by City</h3><div class="chart-wrap" style="height:280px"><canvas id="chart-city-sales" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+        <div class="chart-card"><h3>Order Count by City</h3><div class="chart-wrap" style="height:280px"><canvas id="chart-city-orders" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+      <div class="chart-grid cols2 mb24">
+        <div class="chart-card"><h3>Avg Order Value by City</h3><div class="chart-wrap" style="height:240px"><canvas id="chart-city-aov" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+        <div class="chart-card"><h3>Units Sold by City</h3><div class="chart-wrap" style="height:240px"><canvas id="chart-city-units" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOMER & PAYMENT PAGE -->
+  <div class="page" id="page-customer">
+    <div class="topbar"><h2>👤 Customer &amp; Payment Analysis</h2><span class="meta">Segments &amp; Payment Methods</span></div>
+    <div style="padding:24px 28px 0">
+      <div class="chart-grid cols2 mb24">
+        <div class="chart-card"><h3>Net Sales by Buyer Segment</h3><div class="chart-wrap" style="height:260px"><canvas id="chart-segment-sales" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+        <div class="chart-card"><h3>Orders by Buyer Segment</h3><div class="chart-wrap" style="height:260px"><canvas id="chart-segment-orders" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+      <div class="chart-grid cols2 mb24">
+        <div class="chart-card"><h3>Net Sales by Payment Type</h3><div class="chart-wrap" style="height:260px"><canvas id="chart-payment-sales" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+        <div class="chart-card"><h3>Orders by Payment Type</h3><div class="chart-wrap" style="height:260px"><canvas id="chart-payment-orders" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+      <div class="chart-grid mb24">
+        <div class="chart-card"><h3>Avg Order Value by Payment Type</h3><div class="chart-wrap" style="height:220px"><canvas id="chart-payment-aov" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANNEL & ASSOCIATE PAGE -->
+  <div class="page" id="page-channel">
+    <div class="topbar"><h2>📡 Channel &amp; Associate Analysis</h2><span class="meta">Order Sources &amp; Sales Team</span></div>
+    <div style="padding:24px 28px 0">
+      <div class="chart-grid cols2 mb24">
+        <div class="chart-card"><h3>Net Sales by Order Source</h3><div class="chart-wrap" style="height:260px"><canvas id="chart-source-sales" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+        <div class="chart-card"><h3>Orders by Order Source</h3><div class="chart-wrap" style="height:260px"><canvas id="chart-source-orders" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+      <div class="chart-grid mb24">
+        <div class="chart-card"><h3>Sales Associate Performance (Net Sales)</h3><div class="chart-wrap" style="height:260px"><canvas id="chart-assoc-sales" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+      <div class="chart-grid cols2 mb24">
+        <div class="chart-card"><h3>Associate Order Count</h3><div class="chart-wrap" style="height:240px"><canvas id="chart-assoc-orders" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+        <div class="chart-card"><h3>Associate Avg Order Value</h3><div class="chart-wrap" style="height:240px"><canvas id="chart-assoc-aov" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DISCOUNT ANALYSIS PAGE -->
+  <div class="page" id="page-discount">
+    <div class="topbar"><h2>🏷 Discount Analysis</h2><span class="meta">Promo Discount Patterns</span></div>
+    <div style="padding:24px 28px 0">
+      <div class="kpi-grid" id="kpi-discount">
+    <div class="kpi-card"><div class="label">Total Discount Given</div><div class="value">$6,103.96</div><div class="sub">gross revenue lost</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Gross Sales</div><div class="value">$94,690.90</div><div class="sub">before discounts</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Net Sales</div><div class="value">$88,586.95</div><div class="sub">after discounts</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Avg Discount Rate</div><div class="value">6.1%</div><div class="sub">per order</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">No-Discount Orders</div><div class="value">150</div><div class="sub">36% of orders</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Discount/Revenue Ratio</div><div class="value">6.4%</div><div class="sub">of gross revenue</div><div class="accent-bar"></div></div>
+  </div>
+      <div class="chart-grid cols2 mb24">
+        <div class="chart-card"><h3>Orders by Discount Level</h3><div class="chart-wrap" style="height:260px"><canvas id="chart-disc-orders" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+        <div class="chart-card"><h3>Net Sales by Discount Level</h3><div class="chart-wrap" style="height:260px"><canvas id="chart-disc-sales" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+      <div class="chart-grid cols2 mb24">
+        <div class="chart-card"><h3>Discount Distribution by Department</h3><div class="chart-wrap" style="height:260px"><canvas id="chart-disc-dept" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+        <div class="chart-card"><h3>Discount Distribution by City</h3><div class="chart-wrap" style="height:260px"><canvas id="chart-disc-city" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRANSACTION EXPLORER PAGE -->
+  <div class="page" id="page-explorer">
+    <div class="topbar"><h2>🔍 Transaction Explorer</h2><span class="meta">Search, Sort &amp; Export</span></div>
+    <div style="padding:24px 28px 0">
+      <div class="table-controls">
+        <input type="text" id="table-search" placeholder="Search by Order ID or Item Name…">
+        <button class="export-btn" onclick="exportCSV()">⬇ Export CSV</button>
+      </div>
+      <div class="table-info" id="table-info">Showing 20 of 420 records</div>
+      <div class="table-wrap">
+        <table id="data-table">
+          <thead>
+            <tr>
+              <th onclick="sortTable('OrderID')">Order ID <span class="sort-icon">↕</span></th>
+              <th onclick="sortTable('Date')">Date <span class="sort-icon">↕</span></th>
+              <th onclick="sortTable('City')">City <span class="sort-icon">↕</span></th>
+              <th onclick="sortTable('Department')">Department <span class="sort-icon">↕</span></th>
+              <th onclick="sortTable('ItemName')">Item <span class="sort-icon">↕</span></th>
+              <th onclick="sortTable('SalesAssociate')">Associate <span class="sort-icon">↕</span></th>
+              <th onclick="sortTable('BuyerSegment')">Segment <span class="sort-icon">↕</span></th>
+              <th onclick="sortTable('PaymentType')">Payment <span class="sort-icon">↕</span></th>
+              <th onclick="sortTable('OrderSource')">Source <span class="sort-icon">↕</span></th>
+              <th onclick="sortTable('Units')">Units <span class="sort-icon">↕</span></th>
+              <th onclick="sortTable('PricePerUnit')">Price/Unit <span class="sort-icon">↕</span></th>
+              <th onclick="sortTable('PromoDiscount')">Discount <span class="sort-icon">↕</span></th>
+              <th onclick="sortTable('NetSales')">Net Sales <span class="sort-icon">↕</span></th>
+            </tr>
+          </thead>
+          <tbody id="table-body"><tr>
+      <td><span class="tag">ORD-00129</span></td>
+      <td>2025-01-02</td><td>Medan</td><td>Personal Care</td>
+      <td>Body Lotion</td><td>Dimas Saputra</td>
+      <td>Repeat</td><td>Debit Card</td><td>Physical Store</td>
+      <td style="text-align:right">8</td>
+      <td style="text-align:right">$29.91</td>
+      <td style="text-align:right">10%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$215.35</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00326</span></td>
+      <td>2025-01-02</td><td>Yogyakarta</td><td>Outdoor</td>
+      <td>Water Bottle</td><td>Nadia Putri</td>
+      <td>Repeat</td><td>Debit Card</td><td>Social Commerce</td>
+      <td style="text-align:right">1</td>
+      <td style="text-align:right">$28.88</td>
+      <td style="text-align:right">20%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$23.10</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00298</span></td>
+      <td>2025-01-05</td><td>Bandung</td><td>Home &amp; Living</td>
+      <td>Wall Clock</td><td>Rafi Pratama</td>
+      <td>Repeat</td><td>QRIS</td><td>Marketplace</td>
+      <td style="text-align:right">3</td>
+      <td style="text-align:right">$43.06</td>
+      <td style="text-align:right">20%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$103.34</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00364</span></td>
+      <td>2025-01-05</td><td>Medan</td><td>Home &amp; Living</td>
+      <td>Bed Sheet Set</td><td>Bima Kurniawan</td>
+      <td>Repeat</td><td>Credit Card</td><td>Marketplace</td>
+      <td style="text-align:right">4</td>
+      <td style="text-align:right">$51.98</td>
+      <td style="text-align:right">5%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$197.52</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00160</span></td>
+      <td>2025-01-06</td><td>Jakarta</td><td>Home &amp; Living</td>
+      <td>Bed Sheet Set</td><td>Salsa Maharani</td>
+      <td>First-time</td><td>Cash</td><td>Physical Store</td>
+      <td style="text-align:right">3</td>
+      <td style="text-align:right">$27.62</td>
+      <td style="text-align:right">3%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$80.37</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00035</span></td>
+      <td>2025-01-08</td><td>Makassar</td><td>Outdoor</td>
+      <td>Camping Tent</td><td>Dimas Saputra</td>
+      <td>Repeat</td><td>Bank Transfer</td><td>Marketplace</td>
+      <td style="text-align:right">5</td>
+      <td style="text-align:right">$246.73</td>
+      <td style="text-align:right">0%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$1233.65</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00291</span></td>
+      <td>2025-01-08</td><td>Bandung</td><td>Pet Supplies</td>
+      <td>Dog Leash</td><td>Dimas Saputra</td>
+      <td>Repeat</td><td>Cash</td><td>Social Commerce</td>
+      <td style="text-align:right">10</td>
+      <td style="text-align:right">$24.91</td>
+      <td style="text-align:right">15%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$211.73</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00087</span></td>
+      <td>2025-01-09</td><td>Surabaya</td><td>Personal Care</td>
+      <td>Face Serum</td><td>Dimas Saputra</td>
+      <td>Repeat</td><td>E-Wallet</td><td>Marketplace</td>
+      <td style="text-align:right">4</td>
+      <td style="text-align:right">$78.30</td>
+      <td style="text-align:right">0%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$313.20</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00185</span></td>
+      <td>2025-01-09</td><td>Surabaya</td><td>Personal Care</td>
+      <td>Hair Brush</td><td>Rafi Pratama</td>
+      <td>Repeat</td><td>Cash</td><td>Social Commerce</td>
+      <td style="text-align:right">1</td>
+      <td style="text-align:right">$14.41</td>
+      <td style="text-align:right">0%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$14.41</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00207</span></td>
+      <td>2025-01-09</td><td>Bandung</td><td>Pet Supplies</td>
+      <td>Litter Box</td><td>Rafi Pratama</td>
+      <td>Repeat</td><td>Cash</td><td>Marketplace</td>
+      <td style="text-align:right">5</td>
+      <td style="text-align:right">$43.02</td>
+      <td style="text-align:right">0%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$215.10</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00333</span></td>
+      <td>2025-01-09</td><td>Medan</td><td>Pet Supplies</td>
+      <td>Pet Bed</td><td>Bima Kurniawan</td>
+      <td>Repeat</td><td>E-Wallet</td><td>Social Commerce</td>
+      <td style="text-align:right">10</td>
+      <td style="text-align:right">$82.33</td>
+      <td style="text-align:right">0%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$823.30</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00408</span></td>
+      <td>2025-01-09</td><td>Surabaya</td><td>Technology</td>
+      <td>USB Hub</td><td>Dimas Saputra</td>
+      <td>First-time</td><td>Bank Transfer</td><td>Social Commerce</td>
+      <td style="text-align:right">1</td>
+      <td style="text-align:right">$26.88</td>
+      <td style="text-align:right">3%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$26.07</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00159</span></td>
+      <td>2025-01-11</td><td>Jakarta</td><td>Personal Care</td>
+      <td>Body Lotion</td><td>Bima Kurniawan</td>
+      <td>Repeat</td><td>Cash</td><td>Marketplace</td>
+      <td style="text-align:right">8</td>
+      <td style="text-align:right">$23.68</td>
+      <td style="text-align:right">10%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$170.50</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00139</span></td>
+      <td>2025-01-16</td><td>Medan</td><td>Personal Care</td>
+      <td>Hair Brush</td><td>Nadia Putri</td>
+      <td>Repeat</td><td>Debit Card</td><td>Marketplace</td>
+      <td style="text-align:right">1</td>
+      <td style="text-align:right">$6.99</td>
+      <td style="text-align:right">25%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$5.24</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00226</span></td>
+      <td>2025-01-17</td><td>Makassar</td><td>Home &amp; Living</td>
+      <td>Wall Clock</td><td>Fajar Ramadhan</td>
+      <td>First-time</td><td>Bank Transfer</td><td>Social Commerce</td>
+      <td style="text-align:right">1</td>
+      <td style="text-align:right">$14.43</td>
+      <td style="text-align:right">10%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$12.99</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00321</span></td>
+      <td>2025-01-17</td><td>Surabaya</td><td>Personal Care</td>
+      <td>Shampoo Set</td><td>Bima Kurniawan</td>
+      <td>Repeat</td><td>Debit Card</td><td>Physical Store</td>
+      <td style="text-align:right">3</td>
+      <td style="text-align:right">$13.08</td>
+      <td style="text-align:right">10%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$35.32</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00253</span></td>
+      <td>2025-01-18</td><td>Bandung</td><td>Personal Care</td>
+      <td>Hair Brush</td><td>Salsa Maharani</td>
+      <td>Repeat</td><td>Cash</td><td>Physical Store</td>
+      <td style="text-align:right">3</td>
+      <td style="text-align:right">$5.45</td>
+      <td style="text-align:right">5%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$15.53</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00388</span></td>
+      <td>2025-01-19</td><td>Yogyakarta</td><td>Personal Care</td>
+      <td>Hair Brush</td><td>Fajar Ramadhan</td>
+      <td>Repeat</td><td>QRIS</td><td>Social Commerce</td>
+      <td style="text-align:right">5</td>
+      <td style="text-align:right">$16.46</td>
+      <td style="text-align:right">0%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$82.30</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00235</span></td>
+      <td>2025-01-20</td><td>Bandung</td><td>Personal Care</td>
+      <td>Body Lotion</td><td>Rafi Pratama</td>
+      <td>Repeat</td><td>QRIS</td><td>Physical Store</td>
+      <td style="text-align:right">8</td>
+      <td style="text-align:right">$17.26</td>
+      <td style="text-align:right">0%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$138.08</td>
+    </tr><tr>
+      <td><span class="tag">ORD-00166</span></td>
+      <td>2025-01-21</td><td>Surabaya</td><td>Home &amp; Living</td>
+      <td>Bed Sheet Set</td><td>Bima Kurniawan</td>
+      <td>Repeat</td><td>Credit Card</td><td>Social Commerce</td>
+      <td style="text-align:right">1</td>
+      <td style="text-align:right">$44.60</td>
+      <td style="text-align:right">0%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$44.60</td>
+    </tr></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination"><button class="active" onclick="goPage(1)">1</button><button class="" onclick="goPage(2)">2</button><button class="" onclick="goPage(3)">3</button><button class="" onclick="goPage(4)">4</button><button class="" onclick="goPage(5)">5</button><button class="" onclick="goPage(6)">6</button><button class="" onclick="goPage(7)">7</button><button onclick="goPage(2)">›</button><span class="page-info">Page 1 of 21</span></div>
+    </div>
+  </div>
+
+  <!-- DATA QUALITY PAGE -->
+  <div class="page" id="page-quality">
+    <div class="topbar"><h2>✅ Data Quality &amp; Methodology</h2><span class="meta">Dataset Validation &amp; Formula Reference</span></div>
+    <div style="padding:24px 28px 0">
+      <div class="dq-grid mb24">
+        <div class="dq-card">
+          <h3>Dataset Overview</h3>
+          <div class="dq-row"><span class="dq-key">Total Records</span><span class="dq-val">420 <span class="badge badge-green">✓ Complete</span></span></div>
+          <div class="dq-row"><span class="dq-key">Total Columns</span><span class="dq-val">13</span></div>
+          <div class="dq-row"><span class="dq-key">Unique Order IDs</span><span class="dq-val">420 <span class="badge badge-green">No Duplicates</span></span></div>
+          <div class="dq-row"><span class="dq-key">Date Range</span><span class="dq-val">2025-01-02 → 2025-12-31</span></div>
+          <div class="dq-row"><span class="dq-key">Missing Values</span><span class="dq-val"><span class="badge badge-green">None</span></span></div>
+          <div class="dq-row"><span class="dq-key">Cities Covered</span><span class="dq-val">6 Indonesian Cities</span></div>
+          <div class="dq-row"><span class="dq-key">Departments</span><span class="dq-val">8 Categories</span></div>
+          <div class="dq-row"><span class="dq-key">Unique Products</span><span class="dq-val">20 Items</span></div>
+          <div class="dq-row"><span class="dq-key">Sales Associates</span><span class="dq-val">9 Staff</span></div>
+        </div>
+        <div class="dq-card">
+          <h3>Column Definitions</h3>
+          <div class="dq-row"><span class="dq-key">OrderID</span><span class="dq-val">ORD-XXXXX format</span></div>
+          <div class="dq-row"><span class="dq-key">Date</span><span class="dq-val">YYYY-MM-DD (2025 only)</span></div>
+          <div class="dq-row"><span class="dq-key">City</span><span class="dq-val">6 Indonesian cities</span></div>
+          <div class="dq-row"><span class="dq-key">Department</span><span class="dq-val">8 product categories</span></div>
+          <div class="dq-row"><span class="dq-key">ItemName</span><span class="dq-val">20 distinct products</span></div>
+          <div class="dq-row"><span class="dq-key">SalesAssociate</span><span class="dq-val">9 named associates</span></div>
+          <div class="dq-row"><span class="dq-key">BuyerSegment</span><span class="dq-val">Repeat / First-time</span></div>
+          <div class="dq-row"><span class="dq-key">PaymentType</span><span class="dq-val">6 payment methods</span></div>
+          <div class="dq-row"><span class="dq-key">OrderSource</span><span class="dq-val">3 channels</span></div>
+          <div class="dq-row"><span class="dq-key">Units</span><span class="dq-val">Integer, quantity ordered</span></div>
+          <div class="dq-row"><span class="dq-key">PricePerUnit</span><span class="dq-val">USD decimal price</span></div>
+          <div class="dq-row"><span class="dq-key">PromoDiscount</span><span class="dq-val">0%–25% string → decimal</span></div>
+          <div class="dq-row"><span class="dq-key">NetSales</span><span class="dq-val">Authoritative revenue (USD)</span></div>
+        </div>
+      </div>
+      <div class="dq-grid mb24">
+        <div class="dq-card">
+          <h3>Metric Formulas</h3>
+          <div class="dq-row"><span class="dq-key">Total Net Sales</span><span class="dq-val">Σ NetSales</span></div>
+          <div class="dq-row"><span class="dq-key">Total Orders</span><span class="dq-val">COUNT(distinct OrderID)</span></div>
+          <div class="dq-row"><span class="dq-key">Total Units Sold</span><span class="dq-val">Σ Units</span></div>
+          <div class="dq-row"><span class="dq-key">Avg Order Value</span><span class="dq-val">Total Net Sales ÷ Total Orders</span></div>
+          <div class="dq-row"><span class="dq-key">Avg Price Per Unit</span><span class="dq-val">Total Net Sales ÷ Total Units</span></div>
+          <div class="dq-row"><span class="dq-key">Gross Sales</span><span class="dq-val">Σ (Units × PricePerUnit)</span></div>
+          <div class="dq-row"><span class="dq-key">Total Discount</span><span class="dq-val">Σ (Units × PricePerUnit × PromoDiscount)</span></div>
+          <div class="dq-row"><span class="dq-key">MoM Growth%</span><span class="dq-val">(Current – Previous) ÷ Previous × 100</span></div>
+        </div>
+        <div class="dq-card">
+          <h3>Data Notes</h3>
+          <div class="dq-row"><span class="dq-key">Source</span><span class="dq-val">Simulated Indonesian retail transactions</span></div>
+          <div class="dq-row"><span class="dq-key">Currency</span><span class="dq-val">USD (PricePerUnit &amp; NetSales)</span></div>
+          <div class="dq-row"><span class="dq-key">Discount Range</span><span class="dq-val">0%, 3%, 5%, 10%, 15%, 20%, 25%</span></div>
+          <div class="dq-row"><span class="dq-key">Units Range</span><span class="dq-val">1 to 12 units per order</span></div>
+          <div class="dq-row"><span class="dq-key">NetSales Verified</span><span class="dq-val">Units × Price × (1 - Discount)</span></div>
+          <div class="dq-row"><span class="dq-key">Time Span</span><span class="dq-val">Full year 2025 (all 12 months)</span></div>
+          <div class="dq-row"><span class="dq-key">Null Handling</span><span class="dq-val">No nulls present; 0 discount = 0%</span></div>
+        </div>
+      </div>
+      <div class="chart-card mb24">
+        <h3>Records per Month</h3>
+        <div class="chart-wrap" style="height:200px"><canvas id="chart-dq-monthly" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// =====================================================================
+// RAW DATA (420 records)
+// =====================================================================
+const RAW = `ORD-00129|2025-01-02|Medan|Personal Care|Body Lotion|Dimas Saputra|Repeat|Debit Card|Physical Store|8|29.91|10%|215.35
+ORD-00326|2025-01-02|Yogyakarta|Outdoor|Water Bottle|Nadia Putri|Repeat|Debit Card|Social Commerce|1|28.88|20%|23.1
+ORD-00298|2025-01-05|Bandung|Home & Living|Wall Clock|Rafi Pratama|Repeat|QRIS|Marketplace|3|43.06|20%|103.34
+ORD-00364|2025-01-05|Medan|Home & Living|Bed Sheet Set|Bima Kurniawan|Repeat|Credit Card|Marketplace|4|51.98|5%|197.52
+ORD-00160|2025-01-06|Jakarta|Home & Living|Bed Sheet Set|Salsa Maharani|First-time|Cash|Physical Store|3|27.62|3%|80.37
+ORD-00035|2025-01-08|Makassar|Outdoor|Camping Tent|Dimas Saputra|Repeat|Bank Transfer|Marketplace|5|246.73|0%|1233.65
+ORD-00291|2025-01-08|Bandung|Pet Supplies|Dog Leash|Dimas Saputra|Repeat|Cash|Social Commerce|10|24.91|15%|211.73
+ORD-00087|2025-01-09|Surabaya|Personal Care|Face Serum|Dimas Saputra|Repeat|E-Wallet|Marketplace|4|78.3|0%|313.2
+ORD-00185|2025-01-09|Surabaya|Personal Care|Hair Brush|Rafi Pratama|Repeat|Cash|Social Commerce|1|14.41|0%|14.41
+ORD-00207|2025-01-09|Bandung|Pet Supplies|Litter Box|Rafi Pratama|Repeat|Cash|Marketplace|5|43.02|0%|215.1
+ORD-00333|2025-01-09|Medan|Pet Supplies|Pet Bed|Bima Kurniawan|Repeat|E-Wallet|Social Commerce|10|82.33|0%|823.3
+ORD-00408|2025-01-09|Surabaya|Technology|USB Hub|Dimas Saputra|First-time|Bank Transfer|Social Commerce|1|26.88|3%|26.07
+ORD-00159|2025-01-11|Jakarta|Personal Care|Body Lotion|Bima Kurniawan|Repeat|Cash|Marketplace|8|23.68|10%|170.5
+ORD-00139|2025-01-16|Medan|Personal Care|Hair Brush|Nadia Putri|Repeat|Debit Card|Marketplace|1|6.99|25%|5.24
+ORD-00226|2025-01-17|Makassar|Home & Living|Wall Clock|Fajar Ramadhan|First-time|Bank Transfer|Social Commerce|1|14.43|10%|12.99
+ORD-00321|2025-01-17|Surabaya|Personal Care|Shampoo Set|Bima Kurniawan|Repeat|Debit Card|Physical Store|3|13.08|10%|35.32
+ORD-00253|2025-01-18|Bandung|Personal Care|Hair Brush|Salsa Maharani|Repeat|Cash|Physical Store|3|5.45|5%|15.53
+ORD-00388|2025-01-19|Yogyakarta|Personal Care|Hair Brush|Fajar Ramadhan|Repeat|QRIS|Social Commerce|5|16.46|0%|82.3
+ORD-00235|2025-01-20|Bandung|Personal Care|Body Lotion|Rafi Pratama|Repeat|QRIS|Physical Store|8|17.26|0%|138.08
+ORD-00166|2025-01-21|Surabaya|Home & Living|Bed Sheet Set|Bima Kurniawan|Repeat|Credit Card|Social Commerce|1|44.6|0%|44.6
+ORD-00073|2025-01-23|Medan|Home & Living|Bed Sheet Set|Rafi Pratama|First-time|Cash|Physical Store|4|35.01|0%|140.04
+ORD-00249|2025-01-23|Jakarta|Groceries|Coffee Beans|Nadia Putri|Repeat|QRIS|Marketplace|2|22.19|10%|39.94
+ORD-00269|2025-01-28|Yogyakarta|Home & Living|Wall Clock|Fajar Ramadhan|First-time|Cash|Marketplace|10|39.16|15%|332.86
+ORD-00197|2025-01-29|Jakarta|Personal Care|Shampoo Set|Rafi Pratama|Repeat|Credit Card|Marketplace|2|17.63|5%|33.5
+ORD-00295|2025-01-30|Medan|Groceries|Cooking Oil|Bima Kurniawan|Repeat|E-Wallet|Marketplace|3|16.32|0%|48.96
+ORD-00414|2025-01-30|Jakarta|Groceries|Tea Box|Rafi Pratama|First-time|QRIS|Social Commerce|1|10.14|0%|10.14
+ORD-00306|2025-01-31|Jakarta|Technology|Monitor|Intan Permata|Repeat|QRIS|Marketplace|2|278.09|0%|556.18
+ORD-00083|2025-02-01|Bandung|Outdoor|Hiking Backpack|Rafi Pratama|Repeat|Debit Card|Social Commerce|4|107.49|5%|408.46
+ORD-00223|2025-02-01|Bandung|Home & Living|Bed Sheet Set|Bima Kurniawan|Repeat|QRIS|Marketplace|2|75.93|0%|151.86
+ORD-00217|2025-02-02|Jakarta|Personal Care|Face Serum|Intan Permata|Repeat|QRIS|Social Commerce|3|66.76|5%|190.27
+ORD-00260|2025-02-02|Bandung|Technology|Monitor|Bima Kurniawan|First-time|Cash|Marketplace|1|185.63|5%|176.35
+ORD-00268|2025-02-03|Medan|Personal Care|Hair Brush|Dimas Saputra|Repeat|E-Wallet|Marketplace|4|12.1|0%|48.4
+ORD-00046|2025-02-04|Bandung|Groceries|Granola Pack|Intan Permata|First-time|Bank Transfer|Social Commerce|1|23.6|3%|22.89
+ORD-00127|2025-02-04|Makassar|Home & Living|Storage Box|Nadia Putri|First-time|Credit Card|Marketplace|5|8.67|5%|41.18
+ORD-00225|2025-02-04|Yogyakarta|Groceries|Tea Box|Bima Kurniawan|First-time|QRIS|Marketplace|6|13.82|0%|82.92
+ORD-00341|2025-02-04|Bandung|Personal Care|Shampoo Set|Bima Kurniawan|First-time|QRIS|Social Commerce|3|19.55|0%|58.65
+ORD-00239|2025-02-06|Surabaya|Personal Care|Face Serum|Nadia Putri|Repeat|QRIS|Social Commerce|4|52.36|5%|198.97
+ORD-00101|2025-02-07|Yogyakarta|Groceries|Granola Pack|Fajar Ramadhan|Repeat|QRIS|Social Commerce|2|7.67|3%|14.88
+ORD-00391|2025-02-07|Medan|Groceries|Cooking Oil|Fajar Ramadhan|First-time|Credit Card|Social Commerce|3|24.27|5%|69.17
+ORD-00219|2025-02-09|Bandung|Home & Living|Storage Box|Bima Kurniawan|Repeat|Credit Card|Marketplace|1|19.45|3%|18.87
+ORD-00294|2025-02-09|Medan|Outdoor|Water Bottle|Dimas Saputra|First-time|Debit Card|Physical Store|1|8.78|5%|8.34
+ORD-00314|2025-02-10|Yogyakarta|Technology|Monitor|Dimas Saputra|First-time|Credit Card|Social Commerce|2|185.95|0%|371.9
+ORD-00113|2025-02-11|Jakarta|Personal Care|Face Serum|Fajar Ramadhan|Repeat|Debit Card|Marketplace|1|78.6|0%|78.6
+ORD-00135|2025-02-12|Jakarta|Outdoor|Camping Tent|Salsa Maharani|Repeat|E-Wallet|Social Commerce|2|143.24|10%|257.83
+ORD-00238|2025-02-12|Makassar|Groceries|Coffee Beans|Fajar Ramadhan|Repeat|Debit Card|Social Commerce|2|13.04|10%|23.47
+ORD-00061|2025-02-13|Yogyakarta|Outdoor|Camping Tent|Nadia Putri|Repeat|E-Wallet|Social Commerce|2|79.28|3%|153.8
+ORD-00110|2025-02-13|Makassar|Personal Care|Body Lotion|Intan Permata|Repeat|QRIS|Marketplace|4|16.55|5%|62.89
+ORD-00220|2025-02-13|Yogyakarta|Technology|Tablet|Rafi Pratama|Repeat|Credit Card|Social Commerce|2|545.01|25%|817.51
+ORD-00316|2025-02-13|Bandung|Technology|USB Hub|Salsa Maharani|Repeat|Bank Transfer|Marketplace|4|26.49|3%|102.78
+ORD-00327|2025-02-13|Bandung|Technology|Monitor|Bima Kurniawan|Repeat|Credit Card|Marketplace|2|226.18|0%|452.36
+ORD-00368|2025-02-14|Jakarta|Technology|Wireless Mouse|Bima Kurniawan|First-time|QRIS|Social Commerce|3|13.99|10%|37.77
+ORD-00211|2025-02-15|Yogyakarta|Home & Living|Storage Box|Salsa Maharani|Repeat|Debit Card|Marketplace|2|18.58|5%|35.3
+ORD-00351|2025-02-16|Bandung|Groceries|Coffee Beans|Nadia Putri|First-time|E-Wallet|Marketplace|8|25.94|20%|166.02
+ORD-00100|2025-02-19|Yogyakarta|Home & Living|Kitchen Rack|Intan Permata|First-time|Cash|Marketplace|2|63.04|5%|119.78
+ORD-00266|2025-02-19|Jakarta|Outdoor|Camping Tent|Salsa Maharani|Repeat|Debit Card|Social Commerce|4|237.23|15%|806.58
+ORD-00301|2025-02-20|Medan|Home & Living|Kitchen Rack|Rafi Pratama|First-time|QRIS|Marketplace|1|53.6|3%|51.99
+ORD-00319|2025-02-20|Surabaya|Home & Living|Bed Sheet Set|Rafi Pratama|First-time|Bank Transfer|Physical Store|8|55.21|0%|441.68
+ORD-00012|2025-02-21|Makassar|Outdoor|Yoga Mat|Bima Kurniawan|First-time|Cash|Marketplace|1|26.54|0%|26.54
+ORD-00386|2025-02-21|Medan|Home & Living|Wall Clock|Nadia Putri|Repeat|Bank Transfer|Social Commerce|1|30.17|0%|30.17
+ORD-00103|2025-02-22|Medan|Home & Living|Storage Box|Rafi Pratama|First-time|Debit Card|Social Commerce|1|9.51|20%|7.61
+ORD-00293|2025-02-22|Jakarta|Home & Living|Storage Box|Rafi Pratama|Repeat|Credit Card|Physical Store|4|17.72|5%|67.34
+ORD-00359|2025-02-24|Makassar|Pet Supplies|Cat Food|Fajar Ramadhan|First-time|Cash|Physical Store|5|53.03|10%|238.63
+ORD-00060|2025-02-26|Jakarta|Groceries|Coffee Beans|Dimas Saputra|Repeat|Bank Transfer|Physical Store|3|27.89|3%|81.16
+ORD-00013|2025-02-27|Yogyakarta|Groceries|Granola Pack|Bima Kurniawan|Repeat|Bank Transfer|Social Commerce|8|8.03|5%|61.03
+ORD-00281|2025-02-27|Jakarta|Home & Living|Kitchen Rack|Intan Permata|Repeat|QRIS|Marketplace|4|29.54|15%|100.44
+ORD-00407|2025-03-03|Bandung|Groceries|Tea Box|Nadia Putri|First-time|Cash|Social Commerce|3|7.66|0%|22.98
+ORD-00041|2025-03-05|Medan|Personal Care|Shampoo Set|Bima Kurniawan|Repeat|Credit Card|Marketplace|10|15.35|0%|153.5
+ORD-00118|2025-03-07|Jakarta|Groceries|Coffee Beans|Salsa Maharani|Repeat|Cash|Marketplace|12|26.43|10%|285.44
+ORD-00051|2025-03-10|Makassar|Outdoor|Water Bottle|Salsa Maharani|Repeat|QRIS|Marketplace|8|24.57|0%|196.56
+ORD-00075|2025-03-10|Jakarta|Technology|Monitor|Rafi Pratama|First-time|Cash|Marketplace|10|343.21|0%|3432.1
+ORD-00346|2025-03-10|Makassar|Home & Living|Storage Box|Intan Permata|Repeat|Cash|Physical Store|2|28.03|3%|54.38
+ORD-00109|2025-03-11|Jakarta|Technology|Wireless Mouse|Dimas Saputra|Repeat|E-Wallet|Physical Store|4|53.34|10%|192.02
+ORD-00230|2025-03-11|Bandung|Groceries|Granola Pack|Fajar Ramadhan|Repeat|Debit Card|Physical Store|4|8.44|0%|33.76
+ORD-00058|2025-03-12|Makassar|Home & Living|Kitchen Rack|Nadia Putri|First-time|Cash|Physical Store|3|23.11|5%|65.86
+ORD-00067|2025-03-12|Jakarta|Personal Care|Hair Brush|Salsa Maharani|First-time|E-Wallet|Physical Store|4|5.72|10%|20.59
+ORD-00176|2025-03-12|Bandung|Technology|USB Hub|Dimas Saputra|Repeat|E-Wallet|Marketplace|3|11.23|15%|28.64
+ORD-00198|2025-03-12|Yogyakarta|Pet Supplies|Dog Leash|Fajar Ramadhan|Repeat|Bank Transfer|Social Commerce|5|13.92|15%|59.16
+ORD-00233|2025-03-12|Jakarta|Personal Care|Face Serum|Rafi Pratama|First-time|Debit Card|Social Commerce|1|26.29|5%|24.98
+ORD-00329|2025-03-12|Yogyakarta|Groceries|Cooking Oil|Bima Kurniawan|Repeat|Credit Card|Physical Store|2|8.03|10%|14.45
+ORD-00372|2025-03-12|Jakarta|Personal Care|Body Lotion|Salsa Maharani|First-time|Debit Card|Social Commerce|2|21.42|0%|42.84
+ORD-00224|2025-03-14|Jakarta|Outdoor|Yoga Mat|Dimas Saputra|Repeat|Cash|Physical Store|2|25.94|10%|46.69
+ORD-00172|2025-03-16|Bandung|Groceries|Granola Pack|Bima Kurniawan|Repeat|Bank Transfer|Physical Store|5|23.29|3%|112.96
+ORD-00191|2025-03-16|Bandung|Personal Care|Body Lotion|Rafi Pratama|First-time|Debit Card|Marketplace|1|17.22|0%|17.22
+ORD-00415|2025-03-18|Bandung|Pet Supplies|Litter Box|Dimas Saputra|Repeat|QRIS|Physical Store|1|39.21|0%|39.21
+ORD-00205|2025-03-20|Jakarta|Home & Living|Wall Clock|Salsa Maharani|Repeat|QRIS|Marketplace|2|22.65|0%|45.3
+ORD-00011|2025-03-21|Bandung|Pet Supplies|Pet Bed|Salsa Maharani|Repeat|QRIS|Physical Store|12|77.3|0%|927.6
+ORD-00385|2025-03-21|Jakarta|Pet Supplies|Cat Food|Bima Kurniawan|Repeat|Cash|Physical Store|8|29.87|0%|238.96
+ORD-00150|2025-03-23|Jakarta|Groceries|Tea Box|Bima Kurniawan|First-time|E-Wallet|Physical Store|6|13.5|15%|68.85
+ORD-00264|2025-03-23|Medan|Groceries|Coffee Beans|Intan Permata|First-time|E-Wallet|Marketplace|5|22.67|5%|107.68
+ORD-00395|2025-03-23|Makassar|Technology|Wireless Mouse|Intan Permata|First-time|Cash|Physical Store|5|59.59|0%|297.95
+ORD-00099|2025-03-24|Jakarta|Home & Living|Bed Sheet Set|Rafi Pratama|Repeat|Credit Card|Physical Store|2|30.99|10%|55.78
+ORD-00007|2025-03-26|Medan|Personal Care|Body Lotion|Rafi Pratama|Repeat|Credit Card|Marketplace|1|19.46|5%|18.49
+ORD-00077|2025-03-26|Medan|Personal Care|Body Lotion|Intan Permata|First-time|QRIS|Social Commerce|8|15.45|10%|111.24
+ORD-00209|2025-03-28|Jakarta|Pet Supplies|Dog Leash|Intan Permata|First-time|Bank Transfer|Marketplace|1|22.92|5%|21.77
+ORD-00283|2025-03-28|Makassar|Outdoor|Hiking Backpack|Nadia Putri|First-time|Debit Card|Physical Store|3|101.71|5%|289.87
+ORD-00071|2025-03-29|Surabaya|Technology|Tablet|Salsa Maharani|Repeat|QRIS|Social Commerce|5|452.1|10%|2034.45
+ORD-00261|2025-03-31|Medan|Outdoor|Hiking Backpack|Dimas Saputra|Repeat|Bank Transfer|Physical Store|1|93.57|5%|88.89
+ORD-00078|2025-04-01|Medan|Personal Care|Body Lotion|Intan Permata|Repeat|QRIS|Marketplace|1|12.97|5%|12.32
+ORD-00262|2025-04-01|Bandung|Technology|Wireless Mouse|Nadia Putri|Repeat|Credit Card|Marketplace|6|18.47|5%|105.28
+ORD-00348|2025-04-03|Medan|Groceries|Cooking Oil|Nadia Putri|Repeat|Credit Card|Social Commerce|6|15.86|10%|85.64
+ORD-00081|2025-04-04|Jakarta|Pet Supplies|Pet Bed|Nadia Putri|Repeat|Debit Card|Marketplace|6|34.53|5%|196.82
+ORD-00082|2025-04-04|Yogyakarta|Personal Care|Face Serum|Rafi Pratama|First-time|QRIS|Social Commerce|3|60.7|3%|176.64
+ORD-00175|2025-04-04|Surabaya|Personal Care|Face Serum|Fajar Ramadhan|First-time|Credit Card|Social Commerce|1|31.28|0%|31.28
+ORD-00344|2025-04-04|Makassar|Personal Care|Shampoo Set|Salsa Maharani|First-time|Debit Card|Social Commerce|3|30.84|3%|89.74
+ORD-00199|2025-04-05|Surabaya|Groceries|Tea Box|Nadia Putri|Repeat|Debit Card|Physical Store|2|14.89|20%|23.82
+ORD-00270|2025-04-05|Bandung|Technology|Tablet|Salsa Maharani|Repeat|E-Wallet|Physical Store|10|662.21|10%|5959.89
+ORD-00309|2025-04-05|Yogyakarta|Outdoor|Water Bottle|Dimas Saputra|First-time|Credit Card|Social Commerce|5|22.07|15%|93.8
+ORD-00411|2025-04-06|Makassar|Groceries|Granola Pack|Dimas Saputra|First-time|Cash|Marketplace|6|11.52|0%|69.12
+ORD-00413|2025-04-06|Yogyakarta|Technology|USB Hub|Nadia Putri|First-time|Debit Card|Marketplace|12|11.96|5%|136.34
+ORD-00158|2025-04-08|Makassar|Technology|Tablet|Intan Permata|First-time|E-Wallet|Marketplace|3|214.66|3%|624.66
+ORD-00282|2025-04-08|Makassar|Pet Supplies|Cat Food|Salsa Maharani|Repeat|Credit Card|Marketplace|2|30.88|25%|46.32
+ORD-00366|2025-04-08|Surabaya|Home & Living|Kitchen Rack|Fajar Ramadhan|Repeat|E-Wallet|Physical Store|8|61.66|0%|493.28
+ORD-00032|2025-04-10|Surabaya|Personal Care|Face Serum|Nadia Putri|Repeat|Cash|Marketplace|10|58.77|0%|587.7
+ORD-00161|2025-04-10|Jakarta|Pet Supplies|Litter Box|Salsa Maharani|Repeat|Bank Transfer|Marketplace|3|32.1|0%|96.3
+ORD-00022|2025-04-12|Makassar|Home & Living|Wall Clock|Rafi Pratama|Repeat|Cash|Physical Store|5|27.12|0%|135.6
+ORD-00367|2025-04-12|Jakarta|Outdoor|Water Bottle|Nadia Putri|Repeat|Cash|Physical Store|3|12.44|0%|37.32
+ORD-00020|2025-04-13|Jakarta|Personal Care|Body Lotion|Dimas Saputra|Repeat|QRIS|Social Commerce|4|28.33|20%|90.66
+ORD-00377|2025-04-13|Surabaya|Personal Care|Body Lotion|Nadia Putri|First-time|Debit Card|Marketplace|3|12.53|0%|37.59
+ORD-00056|2025-04-15|Medan|Technology|Tablet|Intan Permata|First-time|Bank Transfer|Physical Store|1|156.12|5%|148.31
+ORD-00241|2025-04-15|Medan|Home & Living|Bed Sheet Set|Rafi Pratama|Repeat|Debit Card|Social Commerce|5|64.16|0%|320.8
+ORD-00212|2025-04-17|Surabaya|Outdoor|Water Bottle|Rafi Pratama|Repeat|Cash|Physical Store|8|17.31|15%|117.71
+ORD-00276|2025-04-17|Surabaya|Technology|USB Hub|Bima Kurniawan|Repeat|QRIS|Social Commerce|2|13.26|5%|25.19
+ORD-00171|2025-04-20|Bandung|Technology|Wireless Mouse|Fajar Ramadhan|Repeat|Cash|Marketplace|3|62.32|10%|168.26
+ORD-00337|2025-04-20|Yogyakarta|Outdoor|Water Bottle|Nadia Putri|Repeat|Bank Transfer|Social Commerce|5|22.24|15%|94.52
+ORD-00043|2025-04-21|Jakarta|Personal Care|Face Serum|Intan Permata|First-time|E-Wallet|Marketplace|8|24.24|5%|184.22
+ORD-00332|2025-04-21|Medan|Home & Living|Wall Clock|Fajar Ramadhan|Repeat|Cash|Marketplace|5|38.8|3%|188.18
+ORD-00065|2025-04-22|Makassar|Groceries|Tea Box|Intan Permata|Repeat|Cash|Social Commerce|2|12.32|3%|23.9
+ORD-00016|2025-04-23|Medan|Pet Supplies|Dog Leash|Salsa Maharani|Repeat|QRIS|Social Commerce|3|33.92|15%|86.5
+ORD-00183|2025-04-23|Surabaya|Pet Supplies|Cat Food|Dimas Saputra|Repeat|Credit Card|Social Commerce|2|16.9|5%|32.11
+ORD-00202|2025-04-24|Makassar|Outdoor|Yoga Mat|Salsa Maharani|Repeat|QRIS|Marketplace|2|19.22|0%|38.44
+ORD-00307|2025-04-24|Jakarta|Technology|Monitor|Salsa Maharani|Repeat|Bank Transfer|Social Commerce|1|299.47|0%|299.47
+ORD-00285|2025-04-26|Yogyakarta|Pet Supplies|Litter Box|Salsa Maharani|Repeat|QRIS|Marketplace|8|15.94|3%|123.69
+ORD-00340|2025-04-29|Surabaya|Personal Care|Face Serum|Rafi Pratama|Repeat|Debit Card|Physical Store|6|23.31|0%|139.86
+ORD-00210|2025-05-01|Medan|Pet Supplies|Pet Bed|Salsa Maharani|Repeat|Debit Card|Physical Store|1|72.98|3%|70.79
+ORD-00365|2025-05-01|Bandung|Groceries|Coffee Beans|Dimas Saputra|First-time|Debit Card|Social Commerce|3|27.95|15%|71.27
+ORD-00392|2025-05-03|Bandung|Outdoor|Yoga Mat|Intan Permata|First-time|Debit Card|Physical Store|2|23.56|0%|47.12
+ORD-00409|2025-05-04|Jakarta|Technology|Tablet|Bima Kurniawan|Repeat|Bank Transfer|Social Commerce|1|479.67|15%|407.72
+ORD-00057|2025-05-05|Surabaya|Home & Living|Kitchen Rack|Fajar Ramadhan|First-time|Cash|Physical Store|1|74.45|15%|63.28
+ORD-00037|2025-05-06|Medan|Groceries|Tea Box|Fajar Ramadhan|Repeat|Debit Card|Social Commerce|12|12.76|0%|153.12
+ORD-00265|2025-05-06|Medan|Personal Care|Body Lotion|Fajar Ramadhan|Repeat|Debit Card|Marketplace|12|13.89|0%|166.68
+ORD-00027|2025-05-07|Yogyakarta|Groceries|Coffee Beans|Bima Kurniawan|First-time|E-Wallet|Social Commerce|2|28.38|10%|51.08
+ORD-00126|2025-05-08|Jakarta|Personal Care|Body Lotion|Bima Kurniawan|Repeat|E-Wallet|Social Commerce|1|10.58|10%|9.52
+ORD-00287|2025-05-10|Yogyakarta|Personal Care|Shampoo Set|Rafi Pratama|First-time|Debit Card|Physical Store|4|37.67|10%|135.61
+ORD-00221|2025-05-11|Medan|Personal Care|Shampoo Set|Rafi Pratama|Repeat|Debit Card|Marketplace|5|18.05|15%|76.71
+ORD-00279|2025-05-13|Medan|Technology|Tablet|Intan Permata|First-time|Credit Card|Social Commerce|1|494.39|0%|494.39
+ORD-00095|2025-05-14|Jakarta|Home & Living|Wall Clock|Rafi Pratama|Repeat|E-Wallet|Physical Store|6|35.15|25%|158.17
+ORD-00317|2025-05-15|Yogyakarta|Groceries|Cooking Oil|Bima Kurniawan|First-time|E-Wallet|Physical Store|2|12.75|0%|25.5
+ORD-00156|2025-05-16|Yogyakarta|Home & Living|Bed Sheet Set|Fajar Ramadhan|Repeat|QRIS|Physical Store|1|60.26|5%|57.25
+ORD-00190|2025-05-17|Medan|Outdoor|Yoga Mat|Intan Permata|Repeat|Debit Card|Social Commerce|1|27.69|15%|23.54
+ORD-00355|2025-05-21|Surabaya|Home & Living|Wall Clock|Salsa Maharani|Repeat|Credit Card|Marketplace|8|27.79|0%|222.32
+ORD-00091|2025-05-22|Surabaya|Groceries|Cooking Oil|Salsa Maharani|Repeat|E-Wallet|Marketplace|4|20.66|3%|80.16
+ORD-00383|2025-05-23|Medan|Groceries|Cooking Oil|Bima Kurniawan|Repeat|Debit Card|Marketplace|8|10.73|5%|81.55
+ORD-00088|2025-05-24|Surabaya|Technology|USB Hub|Intan Permata|Repeat|Credit Card|Social Commerce|3|13.12|0%|39.36
+ORD-00335|2025-05-24|Makassar|Pet Supplies|Litter Box|Rafi Pratama|Repeat|Bank Transfer|Physical Store|3|67.12|0%|201.36
+ORD-00115|2025-05-25|Yogyakarta|Groceries|Coffee Beans|Fajar Ramadhan|Repeat|E-Wallet|Marketplace|1|11.11|0%|11.11
+ORD-00137|2025-05-26|Yogyakarta|Personal Care|Body Lotion|Bima Kurniawan|First-time|Cash|Marketplace|1|9.37|20%|7.5
+ORD-00098|2025-05-28|Makassar|Pet Supplies|Dog Leash|Dimas Saputra|Repeat|Bank Transfer|Physical Store|4|27.03|3%|104.88
+ORD-00244|2025-05-28|Bandung|Home & Living|Kitchen Rack|Bima Kurniawan|Repeat|Debit Card|Marketplace|3|66.3|0%|198.9
+ORD-00417|2025-05-28|Medan|Groceries|Cooking Oil|Nadia Putri|Repeat|Cash|Social Commerce|1|21.86|5%|20.77
+ORD-00370|2025-05-30|Bandung|Home & Living|Storage Box|Bima Kurniawan|First-time|E-Wallet|Social Commerce|10|13.04|0%|130.4
+ORD-00076|2025-05-31|Yogyakarta|Technology|USB Hub|Salsa Maharani|Repeat|Cash|Social Commerce|8|41.47|5%|315.17
+ORD-00140|2025-06-01|Jakarta|Personal Care|Hair Brush|Fajar Ramadhan|First-time|Bank Transfer|Physical Store|2|9.1|5%|17.29
+ORD-00397|2025-06-01|Surabaya|Groceries|Coffee Beans|Bima Kurniawan|Repeat|Credit Card|Marketplace|4|27.92|0%|111.68
+ORD-00121|2025-06-02|Bandung|Technology|Tablet|Nadia Putri|Repeat|Debit Card|Physical Store|12|165.1|10%|1783.08
+ORD-00360|2025-06-02|Surabaya|Groceries|Tea Box|Rafi Pratama|Repeat|Bank Transfer|Marketplace|10|9.15|0%|91.5
+ORD-00145|2025-06-03|Yogyakarta|Personal Care|Face Serum|Salsa Maharani|Repeat|QRIS|Physical Store|2|40.43|3%|78.43
+ORD-00313|2025-06-03|Yogyakarta|Pet Supplies|Cat Food|Nadia Putri|First-time|Credit Card|Physical Store|1|38.71|5%|36.77
+ORD-00128|2025-06-04|Medan|Personal Care|Hair Brush|Rafi Pratama|First-time|Cash|Physical Store|1|16.05|5%|15.25
+ORD-00206|2025-06-04|Jakarta|Technology|Wireless Mouse|Intan Permata|First-time|Debit Card|Physical Store|4|25.55|10%|91.98
+ORD-00275|2025-06-04|Medan|Groceries|Granola Pack|Dimas Saputra|First-time|E-Wallet|Marketplace|3|22.43|0%|67.29
+ORD-00393|2025-06-04|Makassar|Outdoor|Hiking Backpack|Intan Permata|First-time|Bank Transfer|Marketplace|5|96.7|0%|483.5
+ORD-00257|2025-06-05|Makassar|Home & Living|Kitchen Rack|Salsa Maharani|First-time|Debit Card|Social Commerce|3|39.49|0%|118.47
+ORD-00349|2025-06-05|Medan|Pet Supplies|Pet Bed|Intan Permata|Repeat|QRIS|Social Commerce|5|80.23|3%|389.12
+ORD-00111|2025-06-09|Makassar|Home & Living|Storage Box|Salsa Maharani|Repeat|Credit Card|Physical Store|5|28.79|0%|143.95
+ORD-00184|2025-06-09|Jakarta|Personal Care|Body Lotion|Salsa Maharani|Repeat|Debit Card|Marketplace|3|24.57|0%|73.71
+ORD-00008|2025-06-13|Makassar|Home & Living|Wall Clock|Fajar Ramadhan|Repeat|Debit Card|Marketplace|4|20.47|3%|79.42
+ORD-00263|2025-06-13|Makassar|Outdoor|Hiking Backpack|Fajar Ramadhan|Repeat|Cash|Physical Store|2|123.36|5%|234.38
+ORD-00299|2025-06-13|Bandung|Outdoor|Hiking Backpack|Dimas Saputra|Repeat|Debit Card|Physical Store|5|125.79|10%|566.06
+ORD-00036|2025-06-14|Makassar|Home & Living|Kitchen Rack|Fajar Ramadhan|Repeat|Credit Card|Marketplace|2|22.43|5%|42.62
+ORD-00144|2025-06-14|Yogyakarta|Pet Supplies|Litter Box|Bima Kurniawan|Repeat|QRIS|Social Commerce|2|63.32|5%|120.31
+ORD-00201|2025-06-14|Medan|Home & Living|Bed Sheet Set|Fajar Ramadhan|Repeat|QRIS|Marketplace|5|69.22|0%|346.1
+ORD-00286|2025-06-14|Jakarta|Home & Living|Wall Clock|Nadia Putri|Repeat|Debit Card|Physical Store|3|41.48|3%|120.71
+ORD-00047|2025-06-15|Medan|Technology|Tablet|Intan Permata|Repeat|QRIS|Physical Store|2|328.35|10%|591.03
+ORD-00112|2025-06-16|Medan|Home & Living|Kitchen Rack|Rafi Pratama|Repeat|Cash|Marketplace|1|49.6|0%|49.6
+ORD-00398|2025-06-16|Bandung|Personal Care|Shampoo Set|Rafi Pratama|Repeat|Debit Card|Marketplace|1|32.5|5%|30.88
+ORD-00419|2025-06-16|Bandung|Home & Living|Bed Sheet Set|Fajar Ramadhan|First-time|Cash|Marketplace|4|41.38|5%|157.24
+ORD-00227|2025-06-17|Makassar|Technology|Monitor|Intan Permata|Repeat|E-Wallet|Physical Store|3|279.73|10%|755.27
+ORD-00169|2025-06-18|Yogyakarta|Home & Living|Bed Sheet Set|Bima Kurniawan|Repeat|QRIS|Social Commerce|5|65.55|10%|294.98
+ORD-00142|2025-06-19|Yogyakarta|Technology|USB Hub|Rafi Pratama|Repeat|E-Wallet|Marketplace|2|30.69|5%|58.31
+ORD-00420|2025-06-20|Bandung|Home & Living|Storage Box|Rafi Pratama|First-time|Credit Card|Social Commerce|5|21.39|20%|85.56
+ORD-00152|2025-06-21|Bandung|Personal Care|Body Lotion|Bima Kurniawan|Repeat|Debit Card|Marketplace|2|10.14|0%|20.28
+ORD-00086|2025-06-23|Yogyakarta|Pet Supplies|Cat Food|Salsa Maharani|Repeat|Debit Card|Physical Store|1|42.28|10%|38.05
+ORD-00323|2025-06-23|Jakarta|Outdoor|Camping Tent|Intan Permata|Repeat|Debit Card|Marketplace|2|105.52|3%|204.71
+ORD-00376|2025-06-24|Yogyakarta|Technology|Tablet|Nadia Putri|First-time|E-Wallet|Physical Store|10|404.18|3%|3920.55
+ORD-00131|2025-06-25|Medan|Groceries|Tea Box|Intan Permata|First-time|Credit Card|Social Commerce|2|11.43|5%|21.72
+ORD-00015|2025-06-27|Medan|Pet Supplies|Cat Food|Rafi Pratama|First-time|E-Wallet|Marketplace|1|16.95|5%|16.1
+ORD-00021|2025-06-27|Yogyakarta|Technology|USB Hub|Intan Permata|Repeat|Debit Card|Marketplace|1|29.58|15%|25.14
+ORD-00334|2025-06-27|Bandung|Personal Care|Hair Brush|Rafi Pratama|First-time|Cash|Physical Store|1|14.14|0%|14.14
+ORD-00336|2025-06-28|Yogyakarta|Personal Care|Shampoo Set|Rafi Pratama|Repeat|QRIS|Physical Store|2|18.4|25%|27.6
+ORD-00394|2025-06-28|Surabaya|Technology|USB Hub|Rafi Pratama|First-time|Credit Card|Marketplace|6|21.45|20%|102.96
+ORD-00174|2025-06-29|Bandung|Home & Living|Kitchen Rack|Intan Permata|First-time|Debit Card|Physical Store|3|41.99|10%|113.37
+ORD-00130|2025-07-02|Makassar|Personal Care|Shampoo Set|Rafi Pratama|Repeat|Cash|Physical Store|5|11.33|10%|50.98
+ORD-00410|2025-07-02|Makassar|Personal Care|Body Lotion|Rafi Pratama|Repeat|Debit Card|Social Commerce|1|17.23|20%|13.78
+ORD-00214|2025-07-05|Medan|Home & Living|Bed Sheet Set|Nadia Putri|First-time|E-Wallet|Physical Store|4|26.79|0%|107.16
+ORD-00305|2025-07-05|Medan|Outdoor|Yoga Mat|Nadia Putri|Repeat|Credit Card|Social Commerce|2|48.36|3%|93.82
+ORD-00119|2025-07-07|Jakarta|Home & Living|Bed Sheet Set|Salsa Maharani|First-time|Credit Card|Marketplace|3|62.22|5%|177.33
+ORD-00120|2025-07-07|Yogyakarta|Outdoor|Yoga Mat|Rafi Pratama|Repeat|Debit Card|Marketplace|10|19.63|0%|196.3
+ORD-00141|2025-07-07|Medan|Groceries|Tea Box|Bima Kurniawan|Repeat|Bank Transfer|Physical Store|2|7.32|15%|12.44
+ORD-00195|2025-07-08|Bandung|Personal Care|Shampoo Set|Nadia Putri|Repeat|Debit Card|Physical Store|2|22.99|0%|45.98
+ORD-00019|2025-07-09|Yogyakarta|Groceries|Cooking Oil|Dimas Saputra|Repeat|Bank Transfer|Marketplace|5|20.19|10%|90.86
+ORD-00167|2025-07-11|Makassar|Groceries|Coffee Beans|Dimas Saputra|First-time|Cash|Physical Store|2|23.77|10%|42.79
+ORD-00325|2025-07-11|Makassar|Home & Living|Wall Clock|Rafi Pratama|First-time|Debit Card|Social Commerce|1|15.97|3%|15.49
+ORD-00247|2025-07-12|Jakarta|Pet Supplies|Litter Box|Nadia Putri|First-time|Debit Card|Physical Store|2|48.74|0%|97.48
+ORD-00258|2025-07-12|Bandung|Home & Living|Bed Sheet Set|Bima Kurniawan|Repeat|QRIS|Social Commerce|3|52.9|10%|142.83
+ORD-00401|2025-07-12|Yogyakarta|Outdoor|Hiking Backpack|Dimas Saputra|First-time|Debit Card|Marketplace|4|156.49|0%|625.96
+ORD-00096|2025-07-13|Medan|Groceries|Cooking Oil|Fajar Ramadhan|First-time|Debit Card|Physical Store|3|8.34|5%|23.77
+ORD-00179|2025-07-14|Yogyakarta|Home & Living|Storage Box|Nadia Putri|Repeat|Debit Card|Marketplace|1|14.54|0%|14.54
+ORD-00274|2025-07-15|Jakarta|Pet Supplies|Dog Leash|Dimas Saputra|Repeat|Bank Transfer|Marketplace|5|33.29|5%|158.13
+ORD-00278|2025-07-16|Medan|Groceries|Coffee Beans|Fajar Ramadhan|Repeat|Credit Card|Social Commerce|4|10.01|5%|38.04
+ORD-00033|2025-07-17|Yogyakarta|Technology|Tablet|Bima Kurniawan|Repeat|Bank Transfer|Social Commerce|12|284.49|15%|2901.8
+ORD-00363|2025-07-17|Medan|Groceries|Coffee Beans|Bima Kurniawan|First-time|Bank Transfer|Physical Store|3|25.96|15%|66.2
+ORD-00379|2025-07-17|Makassar|Home & Living|Bed Sheet Set|Nadia Putri|Repeat|E-Wallet|Social Commerce|4|30.57|3%|118.61
+ORD-00054|2025-07-18|Medan|Groceries|Tea Box|Nadia Putri|First-time|Credit Card|Social Commerce|8|12.88|3%|99.95
+ORD-00004|2025-07-19|Jakarta|Outdoor|Yoga Mat|Dimas Saputra|Repeat|Debit Card|Physical Store|2|52.11|5%|99.01
+ORD-00358|2025-07-19|Bandung|Groceries|Tea Box|Intan Permata|Repeat|QRIS|Marketplace|8|7.42|5%|56.39
+ORD-00034|2025-07-20|Medan|Groceries|Tea Box|Nadia Putri|First-time|E-Wallet|Marketplace|1|15.11|0%|15.11
+ORD-00236|2025-07-20|Makassar|Pet Supplies|Pet Bed|Dimas Saputra|Repeat|Cash|Social Commerce|1|93.49|0%|93.49
+ORD-00062|2025-07-22|Jakarta|Outdoor|Camping Tent|Intan Permata|Repeat|Debit Card|Physical Store|1|129.48|0%|129.48
+ORD-00154|2025-07-22|Jakarta|Home & Living|Kitchen Rack|Intan Permata|Repeat|Credit Card|Social Commerce|1|52.67|0%|52.67
+ORD-00218|2025-07-22|Surabaya|Personal Care|Hair Brush|Intan Permata|Repeat|Credit Card|Social Commerce|2|4.59|20%|7.34
+ORD-00362|2025-07-22|Jakarta|Home & Living|Kitchen Rack|Nadia Putri|Repeat|Debit Card|Social Commerce|6|68.53|3%|398.84
+ORD-00055|2025-07-23|Yogyakarta|Pet Supplies|Dog Leash|Salsa Maharani|Repeat|E-Wallet|Physical Store|3|14.64|0%|43.92
+ORD-00259|2025-07-23|Surabaya|Personal Care|Hair Brush|Dimas Saputra|First-time|QRIS|Marketplace|4|16.62|3%|64.49
+ORD-00311|2025-07-23|Makassar|Pet Supplies|Litter Box|Bima Kurniawan|Repeat|Bank Transfer|Social Commerce|6|60.72|25%|273.24
+ORD-00125|2025-07-24|Surabaya|Pet Supplies|Dog Leash|Nadia Putri|First-time|E-Wallet|Marketplace|3|14.67|0%|44.01
+ORD-00149|2025-07-25|Medan|Personal Care|Face Serum|Rafi Pratama|Repeat|Cash|Marketplace|1|63.63|10%|57.27
+ORD-00003|2025-07-26|Surabaya|Home & Living|Wall Clock|Fajar Ramadhan|First-time|QRIS|Social Commerce|1|23.56|0%|23.56
+ORD-00237|2025-07-26|Yogyakarta|Groceries|Coffee Beans|Rafi Pratama|Repeat|QRIS|Physical Store|10|11.15|0%|111.5
+ORD-00251|2025-07-26|Makassar|Outdoor|Yoga Mat|Nadia Putri|Repeat|Credit Card|Physical Store|3|28.17|15%|71.83
+ORD-00231|2025-07-27|Makassar|Technology|USB Hub|Intan Permata|Repeat|Credit Card|Physical Store|2|24.86|10%|44.75
+ORD-00044|2025-07-28|Yogyakarta|Outdoor|Camping Tent|Rafi Pratama|First-time|Bank Transfer|Social Commerce|2|88.7|0%|177.4
+ORD-00374|2025-07-28|Makassar|Pet Supplies|Litter Box|Fajar Ramadhan|Repeat|Debit Card|Physical Store|10|25.57|25%|191.77
+ORD-00380|2025-07-29|Jakarta|Outdoor|Hiking Backpack|Salsa Maharani|Repeat|Bank Transfer|Marketplace|8|84.17|5%|639.69
+ORD-00050|2025-07-31|Surabaya|Groceries|Cooking Oil|Rafi Pratama|Repeat|Debit Card|Physical Store|1|12.97|5%|12.32
+ORD-00289|2025-07-31|Jakarta|Groceries|Tea Box|Bima Kurniawan|Repeat|Credit Card|Physical Store|1|7.71|10%|6.94
+ORD-00133|2025-08-03|Yogyakarta|Personal Care|Hair Brush|Bima Kurniawan|First-time|Cash|Social Commerce|3|18.37|0%|55.11
+ORD-00338|2025-08-03|Surabaya|Outdoor|Camping Tent|Bima Kurniawan|Repeat|Bank Transfer|Physical Store|3|185.2|20%|444.48
+ORD-00072|2025-08-04|Bandung|Groceries|Granola Pack|Intan Permata|Repeat|Cash|Marketplace|1|10.24|0%|10.24
+ORD-00025|2025-08-05|Medan|Home & Living|Wall Clock|Nadia Putri|First-time|Debit Card|Physical Store|2|23.94|15%|40.7
+ORD-00052|2025-08-05|Bandung|Groceries|Cooking Oil|Salsa Maharani|Repeat|Debit Card|Marketplace|2|11.5|5%|21.85
+ORD-00256|2025-08-05|Medan|Personal Care|Body Lotion|Dimas Saputra|Repeat|Cash|Marketplace|1|27.74|15%|23.58
+ORD-00416|2025-08-05|Bandung|Technology|USB Hub|Rafi Pratama|First-time|E-Wallet|Physical Store|10|38.79|3%|376.26
+ORD-00303|2025-08-06|Makassar|Pet Supplies|Dog Leash|Salsa Maharani|Repeat|Cash|Physical Store|5|22.15|0%|110.75
+ORD-00132|2025-08-07|Surabaya|Pet Supplies|Litter Box|Dimas Saputra|First-time|Bank Transfer|Marketplace|2|25.13|0%|50.26
+ORD-00215|2025-08-08|Medan|Technology|Wireless Mouse|Bima Kurniawan|Repeat|QRIS|Social Commerce|1|20.67|10%|18.6
+ORD-00216|2025-08-09|Yogyakarta|Outdoor|Yoga Mat|Dimas Saputra|Repeat|Bank Transfer|Marketplace|5|23.93|0%|119.65
+ORD-00404|2025-08-09|Makassar|Outdoor|Camping Tent|Rafi Pratama|Repeat|Debit Card|Marketplace|1|231.71|0%|231.71
+ORD-00165|2025-08-10|Medan|Technology|USB Hub|Dimas Saputra|Repeat|E-Wallet|Marketplace|3|30.72|5%|87.55
+ORD-00064|2025-08-11|Medan|Technology|Monitor|Fajar Ramadhan|First-time|Debit Card|Marketplace|3|306.28|15%|781.01
+ORD-00296|2025-08-12|Jakarta|Home & Living|Kitchen Rack|Salsa Maharani|Repeat|Credit Card|Physical Store|3|48.71|5%|138.82
+ORD-00302|2025-08-12|Yogyakarta|Groceries|Coffee Beans|Dimas Saputra|Repeat|Credit Card|Social Commerce|1|21.07|10%|18.96
+ORD-00123|2025-08-13|Yogyakarta|Outdoor|Camping Tent|Intan Permata|First-time|Cash|Marketplace|2|182.6|0%|365.2
+ORD-00168|2025-08-14|Bandung|Outdoor|Water Bottle|Intan Permata|Repeat|Credit Card|Marketplace|1|32.33|10%|29.1
+ORD-00192|2025-08-14|Jakarta|Outdoor|Water Bottle|Intan Permata|Repeat|QRIS|Social Commerce|4|7.8|5%|29.64
+ORD-00381|2025-08-15|Makassar|Outdoor|Hiking Backpack|Salsa Maharani|Repeat|QRIS|Physical Store|1|91.71|10%|82.54
+ORD-00222|2025-08-17|Bandung|Groceries|Granola Pack|Nadia Putri|Repeat|QRIS|Social Commerce|3|22.57|10%|60.94
+ORD-00328|2025-08-17|Jakarta|Technology|USB Hub|Intan Permata|Repeat|E-Wallet|Marketplace|5|17.29|10%|77.8
+ORD-00014|2025-08-18|Surabaya|Pet Supplies|Dog Leash|Rafi Pratama|First-time|Cash|Social Commerce|2|19.87|5%|37.75
+ORD-00070|2025-08-18|Bandung|Groceries|Coffee Beans|Intan Permata|First-time|QRIS|Physical Store|1|18.08|25%|13.56
+ORD-00089|2025-08-18|Surabaya|Home & Living|Bed Sheet Set|Fajar Ramadhan|Repeat|E-Wallet|Physical Store|1|81.19|15%|69.01
+ORD-00116|2025-08-20|Medan|Personal Care|Shampoo Set|Intan Permata|First-time|QRIS|Marketplace|1|21.38|10%|19.24
+ORD-00252|2025-08-20|Medan|Pet Supplies|Cat Food|Intan Permata|First-time|QRIS|Marketplace|5|36.51|10%|164.29
+ORD-00250|2025-08-21|Surabaya|Personal Care|Body Lotion|Nadia Putri|Repeat|Credit Card|Social Commerce|2|21.46|10%|38.63
+ORD-00114|2025-08-22|Yogyakarta|Technology|Monitor|Nadia Putri|First-time|QRIS|Physical Store|3|394.42|5%|1124.1
+ORD-00243|2025-08-22|Yogyakarta|Technology|Monitor|Salsa Maharani|First-time|Debit Card|Social Commerce|2|288.46|0%|576.92
+ORD-00288|2025-08-22|Bandung|Outdoor|Yoga Mat|Dimas Saputra|Repeat|QRIS|Marketplace|1|35.66|5%|33.88
+ORD-00405|2025-08-22|Jakarta|Home & Living|Storage Box|Bima Kurniawan|Repeat|Cash|Physical Store|8|34.73|5%|263.95
+ORD-00038|2025-08-24|Bandung|Home & Living|Storage Box|Nadia Putri|Repeat|QRIS|Social Commerce|3|33.75|3%|98.21
+ORD-00162|2025-08-24|Makassar|Technology|Monitor|Salsa Maharani|Repeat|E-Wallet|Physical Store|4|325.12|0%|1300.48
+ORD-00181|2025-08-24|Jakarta|Groceries|Cooking Oil|Fajar Ramadhan|Repeat|E-Wallet|Physical Store|10|15.34|0%|153.4
+ORD-00232|2025-08-24|Bandung|Technology|Wireless Mouse|Bima Kurniawan|Repeat|Bank Transfer|Marketplace|10|24.47|5%|232.46
+ORD-00290|2025-08-24|Bandung|Pet Supplies|Litter Box|Fajar Ramadhan|Repeat|Credit Card|Physical Store|2|50.72|0%|101.44
+ORD-00059|2025-08-25|Yogyakarta|Groceries|Cooking Oil|Nadia Putri|Repeat|Cash|Social Commerce|4|23.49|0%|93.96
+ORD-00204|2025-08-25|Yogyakarta|Personal Care|Face Serum|Rafi Pratama|Repeat|Cash|Social Commerce|1|67.09|0%|67.09
+ORD-00228|2025-08-25|Yogyakarta|Technology|USB Hub|Nadia Putri|Repeat|E-Wallet|Marketplace|4|22.17|0%|88.68
+ORD-00272|2025-08-26|Makassar|Home & Living|Bed Sheet Set|Dimas Saputra|Repeat|QRIS|Physical Store|4|89.03|15%|302.7
+ORD-00107|2025-08-27|Makassar|Home & Living|Bed Sheet Set|Bima Kurniawan|Repeat|Debit Card|Marketplace|5|69.95|3%|339.26
+ORD-00163|2025-08-31|Jakarta|Groceries|Cooking Oil|Bima Kurniawan|Repeat|Bank Transfer|Marketplace|3|11.07|15%|28.23
+ORD-00271|2025-08-31|Jakarta|Home & Living|Wall Clock|Bima Kurniawan|Repeat|Debit Card|Social Commerce|4|41.49|5%|157.66
+ORD-00412|2025-08-31|Yogyakarta|Technology|Monitor|Dimas Saputra|Repeat|Credit Card|Physical Store|5|209.21|0%|1046.05
+ORD-00039|2025-09-02|Surabaya|Personal Care|Face Serum|Dimas Saputra|First-time|E-Wallet|Social Commerce|4|48.05|20%|153.76
+ORD-00080|2025-09-02|Yogyakarta|Home & Living|Kitchen Rack|Salsa Maharani|First-time|Debit Card|Social Commerce|3|50.84|0%|152.52
+ORD-00097|2025-09-03|Jakarta|Technology|Wireless Mouse|Rafi Pratama|Repeat|Debit Card|Social Commerce|5|49.42|5%|234.75
+ORD-00240|2025-09-04|Yogyakarta|Groceries|Coffee Beans|Nadia Putri|First-time|QRIS|Marketplace|1|25.34|0%|25.34
+ORD-00069|2025-09-07|Bandung|Technology|Wireless Mouse|Nadia Putri|First-time|E-Wallet|Marketplace|3|19.31|3%|56.19
+ORD-00180|2025-09-08|Surabaya|Technology|USB Hub|Fajar Ramadhan|Repeat|Cash|Marketplace|3|15.4|0%|46.2
+ORD-00406|2025-09-08|Surabaya|Outdoor|Hiking Backpack|Nadia Putri|First-time|QRIS|Physical Store|1|102.76|0%|102.76
+ORD-00292|2025-09-09|Surabaya|Home & Living|Storage Box|Rafi Pratama|Repeat|E-Wallet|Social Commerce|5|23.91|3%|115.96
+ORD-00084|2025-09-10|Surabaya|Outdoor|Hiking Backpack|Salsa Maharani|Repeat|Credit Card|Marketplace|1|120.19|10%|108.17
+ORD-00189|2025-09-10|Makassar|Pet Supplies|Litter Box|Fajar Ramadhan|First-time|E-Wallet|Social Commerce|2|56.82|5%|107.96
+ORD-00136|2025-09-11|Bandung|Pet Supplies|Pet Bed|Fajar Ramadhan|First-time|Credit Card|Social Commerce|10|31.76|10%|285.84
+ORD-00147|2025-09-14|Makassar|Pet Supplies|Cat Food|Dimas Saputra|First-time|Debit Card|Physical Store|4|59.75|5%|227.05
+ORD-00053|2025-09-15|Yogyakarta|Technology|USB Hub|Bima Kurniawan|Repeat|Bank Transfer|Marketplace|6|40.45|0%|242.7
+ORD-00104|2025-09-15|Surabaya|Personal Care|Shampoo Set|Nadia Putri|First-time|QRIS|Physical Store|3|15.22|0%|45.66
+ORD-00342|2025-09-17|Makassar|Groceries|Granola Pack|Rafi Pratama|Repeat|Bank Transfer|Marketplace|4|16.45|0%|65.8
+ORD-00173|2025-09-19|Bandung|Pet Supplies|Litter Box|Fajar Ramadhan|Repeat|Credit Card|Marketplace|3|64.88|0%|194.64
+ORD-00310|2025-09-20|Surabaya|Outdoor|Yoga Mat|Intan Permata|Repeat|Bank Transfer|Marketplace|2|55.96|10%|100.73
+ORD-00079|2025-09-21|Bandung|Technology|Monitor|Nadia Putri|Repeat|Credit Card|Physical Store|1|217.61|5%|206.73
+ORD-00267|2025-09-21|Medan|Home & Living|Bed Sheet Set|Rafi Pratama|First-time|Bank Transfer|Marketplace|3|50.61|5%|144.24
+ORD-00297|2025-09-21|Medan|Home & Living|Storage Box|Fajar Ramadhan|First-time|E-Wallet|Social Commerce|2|21.83|0%|43.66
+ORD-00102|2025-09-23|Yogyakarta|Technology|Monitor|Nadia Putri|First-time|Cash|Social Commerce|3|406.94|5%|1159.78
+ORD-00177|2025-09-23|Makassar|Technology|USB Hub|Bima Kurniawan|First-time|E-Wallet|Social Commerce|3|36.54|20%|87.7
+ORD-00352|2025-09-23|Makassar|Technology|Wireless Mouse|Rafi Pratama|First-time|Credit Card|Marketplace|2|23.92|0%|47.84
+ORD-00187|2025-09-24|Surabaya|Groceries|Tea Box|Nadia Putri|Repeat|QRIS|Social Commerce|5|9.56|0%|47.8
+ORD-00106|2025-09-25|Surabaya|Outdoor|Hiking Backpack|Dimas Saputra|First-time|Debit Card|Social Commerce|6|52.22|0%|313.32
+ORD-00023|2025-09-26|Medan|Groceries|Granola Pack|Intan Permata|Repeat|Credit Card|Marketplace|3|22.62|10%|61.07
+ORD-00277|2025-09-26|Makassar|Personal Care|Body Lotion|Fajar Ramadhan|First-time|Debit Card|Marketplace|3|16.41|10%|44.31
+ORD-00188|2025-09-27|Bandung|Home & Living|Wall Clock|Rafi Pratama|First-time|Credit Card|Marketplace|1|31.8|0%|31.8
+ORD-00343|2025-09-27|Medan|Personal Care|Shampoo Set|Fajar Ramadhan|Repeat|Debit Card|Physical Store|12|19.01|20%|182.5
+ORD-00312|2025-09-28|Yogyakarta|Groceries|Coffee Beans|Fajar Ramadhan|First-time|Credit Card|Physical Store|2|11.22|10%|20.2
+ORD-00322|2025-09-30|Bandung|Home & Living|Bed Sheet Set|Bima Kurniawan|Repeat|QRIS|Social Commerce|10|41.26|0%|412.6
+ORD-00182|2025-10-02|Bandung|Technology|Monitor|Bima Kurniawan|First-time|Credit Card|Marketplace|5|306.92|20%|1227.68
+ORD-00339|2025-10-02|Makassar|Groceries|Cooking Oil|Nadia Putri|First-time|E-Wallet|Physical Store|5|18.49|0%|92.45
+ORD-00063|2025-10-04|Bandung|Outdoor|Hiking Backpack|Rafi Pratama|Repeat|E-Wallet|Social Commerce|1|108.68|5%|103.25
+ORD-00186|2025-10-04|Makassar|Technology|USB Hub|Intan Permata|Repeat|Credit Card|Marketplace|2|10.59|0%|21.18
+ORD-00028|2025-10-05|Yogyakarta|Technology|Monitor|Dimas Saputra|Repeat|QRIS|Marketplace|2|275.68|0%|551.36
+ORD-00399|2025-10-05|Jakarta|Groceries|Granola Pack|Nadia Putri|Repeat|Debit Card|Social Commerce|6|12.41|5%|70.74
+ORD-00357|2025-10-06|Makassar|Technology|Monitor|Dimas Saputra|First-time|Debit Card|Marketplace|2|362.87|0%|725.74
+ORD-00002|2025-10-07|Surabaya|Groceries|Cooking Oil|Dimas Saputra|First-time|QRIS|Marketplace|1|19.13|3%|18.56
+ORD-00345|2025-10-07|Medan|Home & Living|Wall Clock|Intan Permata|First-time|Cash|Social Commerce|1|42.25|0%|42.25
+ORD-00138|2025-10-08|Makassar|Outdoor|Camping Tent|Dimas Saputra|Repeat|Credit Card|Marketplace|2|87.97|5%|167.14
+ORD-00134|2025-10-09|Bandung|Groceries|Cooking Oil|Rafi Pratama|Repeat|Debit Card|Physical Store|1|12.08|3%|11.72
+ORD-00418|2025-10-09|Jakarta|Technology|USB Hub|Dimas Saputra|First-time|QRIS|Social Commerce|1|26.57|20%|21.26
+ORD-00387|2025-10-11|Bandung|Pet Supplies|Pet Bed|Bima Kurniawan|Repeat|Credit Card|Physical Store|3|21.05|10%|56.84
+ORD-00178|2025-10-12|Bandung|Home & Living|Storage Box|Dimas Saputra|Repeat|QRIS|Physical Store|4|31.87|5%|121.11
+ORD-00009|2025-10-15|Makassar|Outdoor|Water Bottle|Salsa Maharani|Repeat|Credit Card|Marketplace|10|11.18|5%|106.21
+ORD-00284|2025-10-15|Yogyakarta|Home & Living|Bed Sheet Set|Dimas Saputra|Repeat|Credit Card|Social Commerce|12|30.94|15%|315.59
+ORD-00330|2025-10-16|Surabaya|Personal Care|Face Serum|Intan Permata|Repeat|QRIS|Social Commerce|1|21.21|0%|21.21
+ORD-00378|2025-10-16|Surabaya|Outdoor|Hiking Backpack|Salsa Maharani|Repeat|Cash|Marketplace|1|81.17|0%|81.17
+ORD-00045|2025-10-19|Yogyakarta|Outdoor|Hiking Backpack|Bima Kurniawan|Repeat|QRIS|Marketplace|6|147.07|5%|838.3
+ORD-00122|2025-10-20|Surabaya|Groceries|Cooking Oil|Bima Kurniawan|Repeat|Bank Transfer|Physical Store|4|24.13|5%|91.69
+ORD-00300|2025-10-20|Jakarta|Groceries|Coffee Beans|Fajar Ramadhan|Repeat|Debit Card|Marketplace|2|13.07|0%|26.14
+ORD-00048|2025-10-21|Yogyakarta|Technology|USB Hub|Bima Kurniawan|First-time|Cash|Social Commerce|10|21.71|0%|217.1
+ORD-00242|2025-10-21|Medan|Home & Living|Kitchen Rack|Intan Permata|First-time|Debit Card|Social Commerce|4|54.65|5%|207.67
+ORD-00010|2025-10-23|Surabaya|Technology|Monitor|Fajar Ramadhan|First-time|Debit Card|Marketplace|2|130.88|0%|261.76
+ORD-00280|2025-10-24|Medan|Pet Supplies|Pet Bed|Salsa Maharani|First-time|QRIS|Social Commerce|1|26.92|0%|26.92
+ORD-00354|2025-10-26|Medan|Pet Supplies|Pet Bed|Nadia Putri|Repeat|Credit Card|Marketplace|3|95.25|10%|257.18
+ORD-00361|2025-10-26|Medan|Pet Supplies|Cat Food|Intan Permata|Repeat|Cash|Social Commerce|2|17.24|5%|32.76
+ORD-00304|2025-10-27|Surabaya|Technology|Monitor|Intan Permata|Repeat|QRIS|Social Commerce|2|274.79|15%|467.14
+ORD-00248|2025-10-28|Surabaya|Technology|Monitor|Fajar Ramadhan|Repeat|E-Wallet|Marketplace|3|170.37|10%|460
+ORD-00001|2025-10-29|Surabaya|Pet Supplies|Cat Food|Nadia Putri|First-time|QRIS|Social Commerce|3|22.17|0%|66.51
+ORD-00331|2025-10-29|Makassar|Pet Supplies|Litter Box|Fajar Ramadhan|Repeat|QRIS|Marketplace|2|45.98|25%|68.97
+ORD-00006|2025-10-30|Bandung|Home & Living|Bed Sheet Set|Dimas Saputra|First-time|Credit Card|Social Commerce|4|48.36|0%|193.44
+ORD-00255|2025-10-30|Medan|Personal Care|Face Serum|Fajar Ramadhan|First-time|Debit Card|Physical Store|10|84.59|0%|845.9
+ORD-00273|2025-10-30|Bandung|Pet Supplies|Dog Leash|Nadia Putri|Repeat|Debit Card|Physical Store|3|24.05|15%|61.33
+ORD-00400|2025-10-31|Jakarta|Technology|USB Hub|Intan Permata|First-time|Cash|Marketplace|3|27.09|0%|81.27
+ORD-00390|2025-11-01|Jakarta|Technology|Monitor|Dimas Saputra|Repeat|Bank Transfer|Physical Store|1|418.15|0%|418.15
+ORD-00030|2025-11-02|Bandung|Outdoor|Camping Tent|Nadia Putri|First-time|E-Wallet|Social Commerce|3|89.24|25%|200.79
+ORD-00090|2025-11-04|Surabaya|Pet Supplies|Cat Food|Fajar Ramadhan|Repeat|Bank Transfer|Social Commerce|5|48.49|0%|242.45
+ORD-00347|2025-11-04|Medan|Personal Care|Body Lotion|Fajar Ramadhan|Repeat|Credit Card|Marketplace|8|28.09|0%|224.72
+ORD-00151|2025-11-05|Surabaya|Outdoor|Yoga Mat|Rafi Pratama|First-time|Debit Card|Marketplace|12|15.54|25%|139.86
+ORD-00157|2025-11-05|Surabaya|Personal Care|Hair Brush|Salsa Maharani|Repeat|QRIS|Social Commerce|1|4.38|3%|4.25
+ORD-00193|2025-11-06|Bandung|Technology|Monitor|Fajar Ramadhan|First-time|Credit Card|Marketplace|2|168.85|3%|327.57
+ORD-00384|2025-11-06|Medan|Technology|USB Hub|Salsa Maharani|Repeat|Bank Transfer|Social Commerce|6|18.44|0%|110.64
+ORD-00005|2025-11-08|Jakarta|Personal Care|Face Serum|Rafi Pratama|First-time|Debit Card|Physical Store|2|51.12|0%|102.24
+ORD-00146|2025-11-08|Bandung|Outdoor|Water Bottle|Rafi Pratama|First-time|Debit Card|Marketplace|1|20.21|5%|19.2
+ORD-00105|2025-11-09|Yogyakarta|Home & Living|Wall Clock|Fajar Ramadhan|First-time|E-Wallet|Marketplace|4|27.78|0%|111.12
+ORD-00254|2025-11-10|Bandung|Technology|Monitor|Intan Permata|Repeat|E-Wallet|Social Commerce|2|358.07|10%|644.53
+ORD-00403|2025-11-10|Makassar|Groceries|Cooking Oil|Fajar Ramadhan|First-time|Credit Card|Marketplace|3|26.11|5%|74.41
+ORD-00085|2025-11-12|Yogyakarta|Groceries|Coffee Beans|Rafi Pratama|Repeat|Cash|Social Commerce|5|9.53|5%|45.27
+ORD-00200|2025-11-13|Medan|Technology|Wireless Mouse|Intan Permata|Repeat|Cash|Social Commerce|1|47.31|20%|37.85
+ORD-00148|2025-11-14|Jakarta|Outdoor|Yoga Mat|Rafi Pratama|First-time|Cash|Marketplace|12|53.63|0%|643.56
+ORD-00353|2025-11-15|Bandung|Home & Living|Storage Box|Fajar Ramadhan|First-time|Cash|Physical Store|4|11.33|0%|45.32
+ORD-00094|2025-11-16|Surabaya|Technology|Wireless Mouse|Fajar Ramadhan|Repeat|Cash|Social Commerce|4|22.61|0%|90.44
+ORD-00196|2025-11-16|Surabaya|Technology|USB Hub|Bima Kurniawan|Repeat|E-Wallet|Physical Store|1|13.82|3%|13.41
+ORD-00124|2025-11-17|Makassar|Outdoor|Camping Tent|Nadia Putri|Repeat|E-Wallet|Physical Store|3|171.3|15%|436.82
+ORD-00324|2025-11-19|Makassar|Groceries|Cooking Oil|Rafi Pratama|Repeat|Credit Card|Social Commerce|8|22.95|0%|183.6
+ORD-00382|2025-11-19|Jakarta|Pet Supplies|Pet Bed|Intan Permata|Repeat|Debit Card|Marketplace|1|98.62|20%|78.9
+ORD-00320|2025-11-20|Makassar|Home & Living|Storage Box|Bima Kurniawan|Repeat|Cash|Marketplace|2|17.75|15%|30.18
+ORD-00092|2025-11-22|Makassar|Outdoor|Yoga Mat|Salsa Maharani|First-time|QRIS|Social Commerce|2|16.86|25%|25.29
+ORD-00143|2025-11-22|Makassar|Outdoor|Water Bottle|Dimas Saputra|First-time|E-Wallet|Physical Store|3|24.75|0%|74.25
+ORD-00402|2025-11-22|Jakarta|Outdoor|Water Bottle|Bima Kurniawan|First-time|Debit Card|Marketplace|2|9.7|3%|18.82
+ORD-00117|2025-11-24|Surabaya|Outdoor|Water Bottle|Fajar Ramadhan|Repeat|E-Wallet|Marketplace|4|22.77|0%|91.08
+ORD-00194|2025-11-24|Makassar|Pet Supplies|Litter Box|Intan Permata|Repeat|Cash|Physical Store|2|23.48|20%|37.57
+ORD-00203|2025-11-24|Makassar|Technology|Tablet|Nadia Putri|Repeat|Bank Transfer|Physical Store|3|677.86|10%|1830.22
+ORD-00031|2025-11-26|Bandung|Personal Care|Body Lotion|Salsa Maharani|Repeat|Bank Transfer|Marketplace|3|13.04|15%|33.25
+ORD-00170|2025-11-26|Jakarta|Personal Care|Hair Brush|Nadia Putri|Repeat|Bank Transfer|Marketplace|1|9.85|5%|9.36
+ORD-00371|2025-11-28|Surabaya|Groceries|Granola Pack|Fajar Ramadhan|Repeat|QRIS|Social Commerce|12|10.73|0%|128.76
+ORD-00108|2025-11-30|Surabaya|Technology|USB Hub|Fajar Ramadhan|First-time|Cash|Physical Store|10|37.77|0%|377.7
+ORD-00068|2025-12-02|Makassar|Technology|Monitor|Rafi Pratama|Repeat|Debit Card|Physical Store|3|325.07|0%|975.21
+ORD-00164|2025-12-02|Bandung|Home & Living|Kitchen Rack|Nadia Putri|Repeat|Debit Card|Marketplace|3|73.93|0%|221.79
+ORD-00026|2025-12-03|Makassar|Home & Living|Storage Box|Intan Permata|First-time|Cash|Marketplace|4|26.22|20%|83.9
+ORD-00229|2025-12-04|Surabaya|Technology|USB Hub|Intan Permata|Repeat|E-Wallet|Physical Store|1|18.61|10%|16.75
+ORD-00315|2025-12-04|Bandung|Pet Supplies|Dog Leash|Fajar Ramadhan|Repeat|Cash|Marketplace|2|18.13|0%|36.26
+ORD-00017|2025-12-06|Jakarta|Technology|Wireless Mouse|Rafi Pratama|Repeat|Credit Card|Physical Store|2|48.28|15%|82.08
+ORD-00389|2025-12-06|Yogyakarta|Groceries|Coffee Beans|Salsa Maharani|Repeat|Cash|Physical Store|2|18.03|10%|32.45
+ORD-00066|2025-12-08|Yogyakarta|Personal Care|Shampoo Set|Dimas Saputra|Repeat|Debit Card|Social Commerce|4|12.77|5%|48.53
+ORD-00396|2025-12-09|Jakarta|Personal Care|Hair Brush|Salsa Maharani|Repeat|Cash|Social Commerce|12|12.94|0%|155.28
+ORD-00234|2025-12-11|Makassar|Outdoor|Water Bottle|Bima Kurniawan|Repeat|Credit Card|Social Commerce|10|20.2|15%|171.7
+ORD-00375|2025-12-11|Medan|Technology|Monitor|Fajar Ramadhan|First-time|Credit Card|Social Commerce|2|406.09|0%|812.18
+ORD-00040|2025-12-12|Jakarta|Home & Living|Bed Sheet Set|Salsa Maharani|First-time|E-Wallet|Physical Store|1|88|0%|88
+ORD-00074|2025-12-12|Yogyakarta|Pet Supplies|Litter Box|Salsa Maharani|Repeat|QRIS|Physical Store|1|30.94|20%|24.75
+ORD-00369|2025-12-12|Surabaya|Pet Supplies|Litter Box|Intan Permata|Repeat|Cash|Social Commerce|2|31.12|10%|56.02
+ORD-00153|2025-12-13|Surabaya|Pet Supplies|Litter Box|Intan Permata|First-time|QRIS|Physical Store|2|18.61|10%|33.5
+ORD-00029|2025-12-14|Jakarta|Home & Living|Storage Box|Bima Kurniawan|First-time|Credit Card|Marketplace|5|22.81|15%|96.94
+ORD-00024|2025-12-16|Yogyakarta|Technology|Tablet|Salsa Maharani|Repeat|Bank Transfer|Social Commerce|1|238.16|10%|214.34
+ORD-00356|2025-12-19|Yogyakarta|Pet Supplies|Dog Leash|Nadia Putri|First-time|Credit Card|Marketplace|2|25.13|5%|47.75
+ORD-00042|2025-12-20|Surabaya|Technology|Wireless Mouse|Fajar Ramadhan|First-time|Debit Card|Marketplace|2|53.27|15%|90.56
+ORD-00246|2025-12-21|Makassar|Home & Living|Bed Sheet Set|Dimas Saputra|First-time|Cash|Marketplace|3|68.62|5%|195.57
+ORD-00155|2025-12-22|Surabaya|Groceries|Tea Box|Bima Kurniawan|Repeat|E-Wallet|Social Commerce|1|13.24|10%|11.92
+ORD-00208|2025-12-24|Surabaya|Technology|USB Hub|Salsa Maharani|Repeat|Bank Transfer|Social Commerce|1|40.2|10%|36.18
+ORD-00318|2025-12-24|Makassar|Home & Living|Bed Sheet Set|Bima Kurniawan|First-time|Cash|Physical Store|1|71.15|10%|64.04
+ORD-00308|2025-12-25|Surabaya|Outdoor|Camping Tent|Dimas Saputra|Repeat|Debit Card|Physical Store|2|168.62|5%|320.38
+ORD-00049|2025-12-26|Jakarta|Home & Living|Kitchen Rack|Rafi Pratama|First-time|E-Wallet|Marketplace|10|50.05|0%|500.5
+ORD-00018|2025-12-29|Jakarta|Technology|USB Hub|Fajar Ramadhan|Repeat|E-Wallet|Physical Store|1|31.2|5%|29.64
+ORD-00245|2025-12-29|Makassar|Outdoor|Water Bottle|Fajar Ramadhan|First-time|Debit Card|Social Commerce|1|28.93|10%|26.04
+ORD-00093|2025-12-30|Makassar|Technology|Wireless Mouse|Fajar Ramadhan|Repeat|Bank Transfer|Physical Store|4|53.52|0%|214.08
+ORD-00213|2025-12-31|Surabaya|Groceries|Coffee Beans|Salsa Maharani|First-time|Debit Card|Physical Store|2|30.8|0%|61.6
+ORD-00350|2025-12-31|Surabaya|Home & Living|Wall Clock|Fajar Ramadhan|Repeat|Cash|Marketplace|6|40.12|10%|216.65
+ORD-00373|2025-12-31|Surabaya|Pet Supplies|Cat Food|Intan Permata|First-time|E-Wallet|Marketplace|1|24.42|5%|23.2`;
+
+// =====================================================================
+// PARSE DATA
+// =====================================================================
+const DATA = RAW.trim().split('\n').map(line => {
+  const p = line.split('|');
+  return {
+    OrderID: p[0], Date: p[1], City: p[2], Department: p[3], ItemName: p[4],
+    SalesAssociate: p[5], BuyerSegment: p[6], PaymentType: p[7], OrderSource: p[8],
+    Units: parseInt(p[9]), PricePerUnit: parseFloat(p[10]),
+    PromoDiscount: parseFloat(p[11].replace('%','')) / 100,
+    NetSales: parseFloat(p[12]),
+    Month: parseInt(p[1].split('-')[1]),
+    Year: parseInt(p[1].split('-')[0])
+  };
+});
+
+// =====================================================================
+// HELPERS
+// =====================================================================
+const fmt = n => '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtn = n => n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const PALETTE = ['#7FB6E8','#B9DDF8','#426A91','#D5EAFE','#5BA0D4','#a8cef0','#3d7ab5','#c4e3f7','#6db0e5','#2c6fa0'];
+const PALETTE2 = ['#7FB6E8','#5BA0D4','#3d7ab5','#2c6fa0','#1e4f73','#a8cef0','#B9DDF8','#D5EAFE','#c4e3f7','#e0f0fc'];
+
+function groupBy(arr, key) {
+  return arr.reduce((acc, r) => { const k = r[key]; acc[k] = (acc[k]||0) + r.NetSales; return acc; }, {});
+}
+function countBy(arr, key) {
+  return arr.reduce((acc, r) => { const k = r[key]; acc[k] = (acc[k]||0) + 1; return acc; }, {});
+}
+function sumBy(arr, key) {
+  return arr.reduce((acc, r) => acc + r[key], 0);
+}
+function topN(obj, n, desc=true) {
+  return Object.entries(obj).sort((a,b) => desc ? b[1]-a[1] : a[1]-b[1]).slice(0,n);
+}
+function unique(arr, key) { return [...new Set(arr.map(r=>r[key]))].sort(); }
+
+// =====================================================================
+// FILTER STATE
+// =====================================================================
+let filteredData = [...DATA];
+let chartInstances = {};
+
+function getFilters() {
+  const mf = parseInt(document.getElementById('f-month-from').value);
+  const mt = parseInt(document.getElementById('f-month-to').value);
+  const cities = [...document.getElementById('f-city').selectedOptions].map(o=>o.value).filter(v=>v);
+  const depts = [...document.getElementById('f-dept').selectedOptions].map(o=>o.value).filter(v=>v);
+  const seg = document.getElementById('f-segment').value;
+  const pay = document.getElementById('f-payment').value;
+  const src = document.getElementById('f-source').value;
+  const assoc = document.getElementById('f-associate').value;
+  return {mf,mt,cities,depts,seg,pay,src,assoc};
+}
+
+function applyFilters() {
+  const f = getFilters();
+  filteredData = DATA.filter(r => {
+    if(r.Month < f.mf || r.Month > f.mt) return false;
+    if(f.cities.length && !f.cities.includes(r.City)) return false;
+    if(f.depts.length && !f.depts.includes(r.Department)) return false;
+    if(f.seg && r.BuyerSegment !== f.seg) return false;
+    if(f.pay && r.PaymentType !== f.pay) return false;
+    if(f.src && r.OrderSource !== f.src) return false;
+    if(f.assoc && r.SalesAssociate !== f.assoc) return false;
+    return true;
+  });
+  renderAll();
+}
+
+function populateFilters() {
+  const city = document.getElementById('f-city');
+  const dept = document.getElementById('f-dept');
+  const pay = document.getElementById('f-payment');
+  const src = document.getElementById('f-source');
+  const assoc = document.getElementById('f-associate');
+  unique(DATA,'City').forEach(v => city.insertAdjacentHTML('beforeend',`<option value="${v}">${v}</option>`));
+  unique(DATA,'Department').forEach(v => dept.insertAdjacentHTML('beforeend',`<option value="${v}">${v}</option>`));
+  unique(DATA,'PaymentType').forEach(v => pay.insertAdjacentHTML('beforeend',`<option value="${v}">${v}</option>`));
+  unique(DATA,'OrderSource').forEach(v => src.insertAdjacentHTML('beforeend',`<option value="${v}">${v}</option>`));
+  unique(DATA,'SalesAssociate').forEach(v => assoc.insertAdjacentHTML('beforeend',`<option value="${v}">${v}</option>`));
+}
+
+// =====================================================================
+// CHART FACTORY
+// =====================================================================
+function mkChart(id, type, labels, datasets, opts={}) {
+  const canvas = document.getElementById(id);
+  if(!canvas) return;
+  if(chartInstances[id]) { chartInstances[id].destroy(); }
+  const ctx = canvas.getContext('2d');
+  chartInstances[id] = new Chart(ctx, {
+    type, data:{labels, datasets},
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:opts.legend!==false, position:opts.legendPos||'top', labels:{boxWidth:12,font:{size:11}}},
+               tooltip:{callbacks:{label: ctx => ' '+fmtn(ctx.parsed.y||ctx.parsed||0)}}},
+      scales: type==='pie'||type==='doughnut' ? {} : {
+        x:{grid:{color:'#f0f5fc'},ticks:{font:{size:11},color:'#718096', maxRotation:40}},
+        y:{grid:{color:'#f0f5fc'},ticks:{font:{size:11},color:'#718096',callback:v=>opts.pct?v+'%':'$'+v.toLocaleString()}}
+      },
+      ...opts.extra
+    }
+  });
+}
+
+function barDs(label, data, color, idx=0) {
+  return {label, data, backgroundColor: color||PALETTE[idx%PALETTE.length], borderRadius:4, borderSkipped:false};
+}
+function lineDs(label, data, color) {
+  return {label, data, borderColor:color||'#426A91', backgroundColor:color?color+'33':'#426A9133', fill:false, tension:0.3, pointRadius:4, pointHoverRadius:6, borderWidth:2};
+}
+function areaDs(label, data, color) {
+  return {label, data, borderColor:color||'#426A91', backgroundColor:color?color+'55':'#7FB6E855', fill:true, tension:0.4, pointRadius:3, borderWidth:2};
+}
+
+// =====================================================================
+// RENDER ALL
+// =====================================================================
+function renderAll() {
+  const d = filteredData;
+  renderOverview(d);
+  renderSales(d);
+  renderProducts(d);
+  renderGeo(d);
+  renderCustomer(d);
+  renderChannel(d);
+  renderDiscount(d);
+  renderExplorer(d);
+  renderDQ(d);
+}
+
+// =====================================================================
+// OVERVIEW
+// =====================================================================
+function renderOverview(d) {
+  if(!d.length) { document.getElementById('kpi-overview').innerHTML='<div class="no-data">No data matches the current filters.</div>'; return; }
+  const totalSales = sumBy(d,'NetSales');
+  const totalOrders = d.length;
+  const totalUnits = sumBy(d,'Units');
+  const aov = totalSales/totalOrders;
+  const appu = totalSales/totalUnits;
+  const totalDiscount = d.reduce((a,r)=>a+(r.Units*r.PricePerUnit*r.PromoDiscount),0);
+  const cities = unique(d,'City').length;
+  const depts = unique(d,'Department').length;
+
+  document.getElementById('kpi-overview').innerHTML = `
+    <div class="kpi-card"><div class="label">Total Net Sales</div><div class="value">${fmt(totalSales)}</div><div class="sub">${totalOrders} orders</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Total Orders</div><div class="value">${totalOrders.toLocaleString()}</div><div class="sub">unique transactions</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Total Units Sold</div><div class="value">${totalUnits.toLocaleString()}</div><div class="sub">across all items</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Avg Order Value</div><div class="value">${fmt(aov)}</div><div class="sub">per transaction</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Avg Price/Unit</div><div class="value">${fmt(appu)}</div><div class="sub">net revenue per unit</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Total Discount</div><div class="value">${fmt(totalDiscount)}</div><div class="sub">gross discount applied</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Cities</div><div class="value">${cities}</div><div class="sub">distinct locations</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Departments</div><div class="value">${depts}</div><div class="sub">product categories</div><div class="accent-bar"></div></div>
+  `;
+
+  // Insights
+  const byMonth = {}; d.forEach(r=>{ byMonth[r.Month]=(byMonth[r.Month]||0)+r.NetSales; });
+  const topMonth = topN(byMonth,1)[0]; const botMonth = topN(byMonth,1,false)[0];
+  const byDept = groupBy(d,'Department'); const topDept = topN(byDept,1)[0];
+  const byItem = groupBy(d,'ItemName'); const topItem = topN(byItem,1)[0];
+  const byCity = groupBy(d,'City'); const topCity = topN(byCity,1)[0];
+  const byPay = groupBy(d,'PaymentType'); const topPay = topN(byPay,1)[0];
+  const bySrc = groupBy(d,'OrderSource'); const topSrc = topN(bySrc,1)[0];
+  const bySeg = groupBy(d,'BuyerSegment'); const topSeg = topN(bySeg,1)[0];
+  const byAssoc = groupBy(d,'SalesAssociate'); const topAssoc = topN(byAssoc,1)[0];
+
+  document.getElementById('insights-grid').innerHTML = `
+    <div class="insight-item"><div class="i-label">Top Month</div><div class="i-val">${topMonth?MONTHS[topMonth[0]-1]:'-'}</div><div class="i-num">${topMonth?fmt(topMonth[1]):''}</div></div>
+    <div class="insight-item"><div class="i-label">Bottom Month</div><div class="i-val">${botMonth?MONTHS[botMonth[0]-1]:'-'}</div><div class="i-num">${botMonth?fmt(botMonth[1]):''}</div></div>
+    <div class="insight-item"><div class="i-label">Top Department</div><div class="i-val">${topDept?topDept[0]:'-'}</div><div class="i-num">${topDept?fmt(topDept[1]):''}</div></div>
+    <div class="insight-item"><div class="i-label">Top Item</div><div class="i-val">${topItem?topItem[0]:'-'}</div><div class="i-num">${topItem?fmt(topItem[1]):''}</div></div>
+    <div class="insight-item"><div class="i-label">Top City</div><div class="i-val">${topCity?topCity[0]:'-'}</div><div class="i-num">${topCity?fmt(topCity[1]):''}</div></div>
+    <div class="insight-item"><div class="i-label">Top Payment</div><div class="i-val">${topPay?topPay[0]:'-'}</div><div class="i-num">${topPay?fmt(topPay[1]):''}</div></div>
+    <div class="insight-item"><div class="i-label">Top Source</div><div class="i-val">${topSrc?topSrc[0]:'-'}</div><div class="i-num">${topSrc?fmt(topSrc[1]):''}</div></div>
+    <div class="insight-item"><div class="i-label">Top Segment</div><div class="i-val">${topSeg?topSeg[0]:'-'}</div><div class="i-num">${topSeg?fmt(topSeg[1]):''}</div></div>
+    <div class="insight-item"><div class="i-label">Top Associate</div><div class="i-val">${topAssoc?topAssoc[0]:'-'}</div><div class="i-num">${topAssoc?fmt(topAssoc[1]):''}</div></div>
+  `;
+
+  // Monthly trend
+  const mnSales = MONTHS.map((_,i)=>{ const m=i+1; return d.filter(r=>r.Month===m).reduce((a,r)=>a+r.NetSales,0); });
+  mkChart('chart-monthly-sales','line',MONTHS,[lineDs('Net Sales',mnSales,'#426A91')]);
+
+  // Dept overview
+  const deptObj = groupBy(d,'Department');
+  const dEntries = topN(deptObj,20);
+  mkChart('chart-dept-overview','bar',dEntries.map(e=>e[0]),[barDs('Net Sales',dEntries.map(e=>e[1]),'#7FB6E8')],{extra:{indexAxis:'y'}});
+
+  // City overview
+  const cityObj = groupBy(d,'City');
+  const cEntries = topN(cityObj,20);
+  mkChart('chart-city-overview','bar',cEntries.map(e=>e[0]),[barDs('Net Sales',cEntries.map(e=>e[1]),'#5BA0D4')],{extra:{indexAxis:'y'}});
+}
+
+// =====================================================================
+// SALES PERFORMANCE
+// =====================================================================
+function renderSales(d) {
+  const mnSales = MONTHS.map((_,i)=>d.filter(r=>r.Month===i+1).reduce((a,r)=>a+r.NetSales,0));
+  const mnOrders = MONTHS.map((_,i)=>d.filter(r=>r.Month===i+1).length);
+  const mnUnits = MONTHS.map((_,i)=>d.filter(r=>r.Month===i+1).reduce((a,r)=>a+r.Units,0));
+  const mnAov = MONTHS.map((_,i)=>{const recs=d.filter(r=>r.Month===i+1); return recs.length?recs.reduce((a,r)=>a+r.NetSales,0)/recs.length:0;});
+
+  mkChart('chart-sales-line','line',MONTHS,[lineDs('Monthly Net Sales',mnSales,'#426A91')]);
+
+  mkChart('chart-order-vol','bar',MONTHS,[barDs('Orders',mnOrders,'#7FB6E8')],
+    {extra:{scales:{y:{ticks:{callback:v=>v.toLocaleString()}}}}});
+
+  // MoM growth
+  const mom = mnSales.map((v,i)=>i===0?0:mnSales[i-1]===0?0:((v-mnSales[i-1])/mnSales[i-1]*100));
+  const momColors = mom.map(v=>v>=0?'#5BA0D4':'#c0392b');
+  mkChart('chart-mom-growth','bar',MONTHS,[{label:'MoM Growth %',data:mom.map(v=>parseFloat(v.toFixed(1))),backgroundColor:momColors,borderRadius:4}],
+    {pct:true});
+
+  // Cumulative
+  const cumul = mnSales.reduce((acc,v,i)=>{acc.push((acc[i-1]||0)+v);return acc;},[]);
+  mkChart('chart-cumulative','line',MONTHS,[areaDs('Cumulative Sales',cumul,'#426A91')]);
+
+  mkChart('chart-monthly-units','bar',MONTHS,[barDs('Units',mnUnits,'#B9DDF8')],
+    {extra:{scales:{y:{ticks:{callback:v=>v.toLocaleString()}}}}});
+  mkChart('chart-monthly-aov','line',MONTHS,[lineDs('Avg Order Value',mnAov,'#3d7ab5')]);
+}
+
+// =====================================================================
+// PRODUCTS
+// =====================================================================
+function renderProducts(d) {
+  const deptSales = groupBy(d,'Department');
+  const deptOrders = countBy(d,'Department');
+  const dEntries = topN(deptSales,20);
+  const dColors = dEntries.map((_,i)=>PALETTE2[i%PALETTE2.length]);
+  mkChart('chart-dept-bar','bar',dEntries.map(e=>e[0]),[barDs('Net Sales',dEntries.map(e=>e[1]),null)].map((ds,_)=>{ds.backgroundColor=dColors;return ds;}),
+    {extra:{indexAxis:'y'}});
+
+  const dOKeys = Object.keys(deptOrders).sort((a,b)=>deptOrders[b]-deptOrders[a]);
+  mkChart('chart-dept-orders','bar',dOKeys,[barDs('Orders',dOKeys.map(k=>deptOrders[k]),null)].map(ds=>{ds.backgroundColor=dOKeys.map((_,i)=>PALETTE[i%PALETTE.length]);return ds;}),
+    {extra:{indexAxis:'y',scales:{y:{ticks:{callback:v=>v.toLocaleString()}}}}});
+
+  const itemSales = groupBy(d,'ItemName');
+  const top5 = topN(itemSales,5);
+  const bot5 = topN(itemSales,5,false);
+  mkChart('chart-top5','bar',top5.map(e=>e[0]),[barDs('Net Sales',top5.map(e=>e[1]),'#5BA0D4')]);
+  mkChart('chart-bot5','bar',bot5.map(e=>e[0]),[barDs('Net Sales',bot5.map(e=>e[1]),'#B9DDF8')]);
+
+  const allItems = topN(itemSales,50);
+  mkChart('chart-items-all','bar',allItems.map(e=>e[0]),[barDs('Net Sales',allItems.map(e=>e[1]),null)].map(ds=>{ds.backgroundColor=allItems.map((_,i)=>PALETTE2[i%PALETTE2.length]);return ds;}));
+}
+
+// =====================================================================
+// GEO
+// =====================================================================
+function renderGeo(d) {
+  const cities = unique(d,'City');
+  const citySales = cities.map(c=>d.filter(r=>r.City===c).reduce((a,r)=>a+r.NetSales,0));
+  const cityOrders = cities.map(c=>d.filter(r=>r.City===c).length);
+  const cityUnits = cities.map(c=>d.filter(r=>r.City===c).reduce((a,r)=>a+r.Units,0));
+  const cityAov = cities.map((c,i)=>cityOrders[i]?citySales[i]/cityOrders[i]:0);
+
+  const sorted = cities.map((c,i)=>({c,s:citySales[i],o:cityOrders[i],u:cityUnits[i],a:cityAov[i]})).sort((a,b)=>b.s-a.s);
+
+  document.getElementById('kpi-geo').innerHTML = sorted.map(({c,s,o,u,a})=>`
+    <div class="kpi-card"><div class="label">${c}</div><div class="value">${fmt(s)}</div><div class="sub">${o} orders · ${u} units · AOV ${fmt(a)}</div><div class="accent-bar"></div></div>
+  `).join('');
+
+  const sl = sorted.map(x=>x.c);
+  mkChart('chart-city-sales','bar',sl,[barDs('Net Sales',sorted.map(x=>x.s),null)].map(ds=>{ds.backgroundColor=sl.map((_,i)=>PALETTE[i%PALETTE.length]);return ds;}),
+    {extra:{indexAxis:'y'}});
+  mkChart('chart-city-orders','bar',sl,[barDs('Orders',sorted.map(x=>x.o),null)].map(ds=>{ds.backgroundColor=sl.map((_,i)=>PALETTE2[i%PALETTE2.length]);return ds;}),
+    {extra:{indexAxis:'y',scales:{y:{ticks:{callback:v=>v}}}}});
+  mkChart('chart-city-aov','bar',sl,[barDs('Avg Order Value',sorted.map(x=>x.a),'#5BA0D4')]);
+  mkChart('chart-city-units','bar',sl,[barDs('Units',sorted.map(x=>x.u),'#B9DDF8')],
+    {extra:{scales:{y:{ticks:{callback:v=>v.toLocaleString()}}}}});
+}
+
+// =====================================================================
+// CUSTOMER & PAYMENT
+// =====================================================================
+function renderCustomer(d) {
+  const segs = unique(d,'BuyerSegment');
+  const segSales = segs.map(s=>d.filter(r=>r.BuyerSegment===s).reduce((a,r)=>a+r.NetSales,0));
+  const segOrders = segs.map(s=>d.filter(r=>r.BuyerSegment===s).length);
+  mkChart('chart-segment-sales','doughnut',segs,[{data:segSales,backgroundColor:['#7FB6E8','#426A91'],borderWidth:2,borderColor:'#fff'}],
+    {legend:true,extra:{plugins:{legend:{position:'bottom'}}}});
+  mkChart('chart-segment-orders','doughnut',segs,[{data:segOrders,backgroundColor:['#B9DDF8','#3d7ab5'],borderWidth:2,borderColor:'#fff'}],
+    {legend:true,extra:{plugins:{legend:{position:'bottom'}}}});
+
+  const pays = unique(d,'PaymentType');
+  const paySales = pays.map(p=>d.filter(r=>r.PaymentType===p).reduce((a,r)=>a+r.NetSales,0));
+  const payOrders = pays.map(p=>d.filter(r=>r.PaymentType===p).length);
+  const payAov = pays.map((p,i)=>payOrders[i]?paySales[i]/payOrders[i]:0);
+  const ps = pays.map((p,i)=>({p,s:paySales[i],o:payOrders[i],a:payAov[i]})).sort((a,b)=>b.s-a.s);
+  mkChart('chart-payment-sales','pie',ps.map(x=>x.p),[{data:ps.map(x=>x.s),backgroundColor:PALETTE.slice(0,ps.length),borderWidth:2,borderColor:'#fff'}],
+    {legend:true,extra:{plugins:{legend:{position:'bottom'}}}});
+  mkChart('chart-payment-orders','bar',ps.map(x=>x.p),[barDs('Orders',ps.map(x=>x.o),null)].map(ds=>{ds.backgroundColor=PALETTE2.slice(0,ps.length);return ds;}));
+  mkChart('chart-payment-aov','bar',ps.map(x=>x.p),[barDs('Avg Order Value',ps.map(x=>x.a),'#5BA0D4')]);
+}
+
+// =====================================================================
+// CHANNEL & ASSOCIATE
+// =====================================================================
+function renderChannel(d) {
+  const srcs = unique(d,'OrderSource');
+  const srcSales = srcs.map(s=>d.filter(r=>r.OrderSource===s).reduce((a,r)=>a+r.NetSales,0));
+  const srcOrders = srcs.map(s=>d.filter(r=>r.OrderSource===s).length);
+  const ss = srcs.map((s,i)=>({s,sales:srcSales[i],ord:srcOrders[i]})).sort((a,b)=>b.sales-a.sales);
+  mkChart('chart-source-sales','doughnut',ss.map(x=>x.s),[{data:ss.map(x=>x.sales),backgroundColor:['#7FB6E8','#426A91','#B9DDF8'],borderWidth:2,borderColor:'#fff'}],
+    {legend:true,extra:{plugins:{legend:{position:'bottom'}}}});
+  mkChart('chart-source-orders','bar',ss.map(x=>x.s),[barDs('Orders',ss.map(x=>x.ord),null)].map(ds=>{ds.backgroundColor=['#7FB6E8','#426A91','#B9DDF8'];return ds;}));
+
+  const assocs = unique(d,'SalesAssociate');
+  const assocSales = assocs.map(a=>d.filter(r=>r.SalesAssociate===a).reduce((s,r)=>s+r.NetSales,0));
+  const assocOrders = assocs.map(a=>d.filter(r=>r.SalesAssociate===a).length);
+  const assocAov = assocs.map((a,i)=>assocOrders[i]?assocSales[i]/assocOrders[i]:0);
+  const as = assocs.map((a,i)=>({a,s:assocSales[i],o:assocOrders[i],av:assocAov[i]})).sort((x,y)=>y.s-x.s);
+  mkChart('chart-assoc-sales','bar',as.map(x=>x.a),[barDs('Net Sales',as.map(x=>x.s),null)].map(ds=>{ds.backgroundColor=as.map((_,i)=>PALETTE2[i%PALETTE2.length]);return ds;}));
+  mkChart('chart-assoc-orders','bar',as.map(x=>x.a),[barDs('Orders',as.map(x=>x.o),'#7FB6E8')],
+    {extra:{scales:{y:{ticks:{callback:v=>v}}}}});
+  mkChart('chart-assoc-aov','bar',as.map(x=>x.a),[barDs('AOV',as.map(x=>x.av),'#5BA0D4')]);
+}
+
+// =====================================================================
+// DISCOUNT
+// =====================================================================
+function renderDiscount(d) {
+  const totalSales = sumBy(d,'NetSales')||1;
+  const totalDiscount = d.reduce((a,r)=>a+(r.Units*r.PricePerUnit*r.PromoDiscount),0);
+  const grossSales = d.reduce((a,r)=>a+(r.Units*r.PricePerUnit),0);
+  const avgDisc = d.reduce((a,r)=>a+r.PromoDiscount,0)/d.length*100||0;
+  const zeroDisc = d.filter(r=>r.PromoDiscount===0).length;
+
+  document.getElementById('kpi-discount').innerHTML = `
+    <div class="kpi-card"><div class="label">Total Discount Given</div><div class="value">${fmt(totalDiscount)}</div><div class="sub">gross revenue lost</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Gross Sales</div><div class="value">${fmt(grossSales)}</div><div class="sub">before discounts</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Net Sales</div><div class="value">${fmt(totalSales)}</div><div class="sub">after discounts</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Avg Discount Rate</div><div class="value">${avgDisc.toFixed(1)}%</div><div class="sub">per order</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">No-Discount Orders</div><div class="value">${zeroDisc}</div><div class="sub">${(zeroDisc/d.length*100).toFixed(0)}% of orders</div><div class="accent-bar"></div></div>
+    <div class="kpi-card"><div class="label">Discount/Revenue Ratio</div><div class="value">${(totalDiscount/(grossSales||1)*100).toFixed(1)}%</div><div class="sub">of gross revenue</div><div class="accent-bar"></div></div>
+  `;
+
+  const discLevels = ['0%','3%','5%','10%','15%','20%','25%'];
+  const discVals = [0,0.03,0.05,0.10,0.15,0.20,0.25];
+  const discOrders = discVals.map(v=>d.filter(r=>Math.abs(r.PromoDiscount-v)<0.001).length);
+  const discSalesArr = discVals.map(v=>d.filter(r=>Math.abs(r.PromoDiscount-v)<0.001).reduce((a,r)=>a+r.NetSales,0));
+  mkChart('chart-disc-orders','bar',discLevels,[barDs('Orders',discOrders,null)].map(ds=>{ds.backgroundColor=discLevels.map((_,i)=>PALETTE[i%PALETTE.length]);return ds;}));
+  mkChart('chart-disc-sales','bar',discLevels,[barDs('Net Sales',discSalesArr,null)].map(ds=>{ds.backgroundColor=discLevels.map((_,i)=>PALETTE2[i%PALETTE2.length]);return ds;}));
+
+  // Avg discount by dept
+  const depts = unique(d,'Department');
+  const avgDiscDept = depts.map(dep=>{
+    const recs=d.filter(r=>r.Department===dep);
+    return recs.length?recs.reduce((a,r)=>a+r.PromoDiscount,0)/recs.length*100:0;
+  });
+  const ds2 = depts.map((dep,i)=>({dep,v:avgDiscDept[i]})).sort((a,b)=>b.v-a.v);
+  mkChart('chart-disc-dept','bar',ds2.map(x=>x.dep),[barDs('Avg Discount %',ds2.map(x=>parseFloat(x.v.toFixed(1))),null)].map(ds=>{ds.backgroundColor=ds2.map((_,i)=>PALETTE[i%PALETTE.length]);return ds;}),
+    {pct:true,extra:{scales:{y:{ticks:{callback:v=>v+'%'}}}}});
+
+  const cities2 = unique(d,'City');
+  const avgDiscCity = cities2.map(city=>{
+    const recs=d.filter(r=>r.City===city);
+    return recs.length?recs.reduce((a,r)=>a+r.PromoDiscount,0)/recs.length*100:0;
+  });
+  const cs2 = cities2.map((c,i)=>({c,v:avgDiscCity[i]})).sort((a,b)=>b.v-a.v);
+  mkChart('chart-disc-city','bar',cs2.map(x=>x.c),[barDs('Avg Discount %',cs2.map(x=>parseFloat(x.v.toFixed(1))),null)].map(ds=>{ds.backgroundColor=cs2.map((_,i)=>PALETTE2[i%PALETTE2.length]);return ds;}),
+    {pct:true,extra:{scales:{y:{ticks:{callback:v=>v+'%'}}}}});
+}
+
+// =====================================================================
+// TRANSACTION EXPLORER
+// =====================================================================
+let tableData = [];
+let tableSortKey = 'Date';
+let tableSortDir = 1;
+let tableSearch = '';
+let tablePage = 1;
+const PAGE_SIZE = 20;
+
+function renderExplorer(d) {
+  tableData = [...d];
+  sortAndRenderTable();
+}
+
+function sortAndRenderTable() {
+  const search = tableSearch.toLowerCase();
+  let filtered = tableData.filter(r =>
+    !search || r.OrderID.toLowerCase().includes(search) || r.ItemName.toLowerCase().includes(search)
+  );
+  filtered.sort((a,b)=>{
+    const av = a[tableSortKey], bv = b[tableSortKey];
+    if(typeof av === 'number') return (av-bv)*tableSortDir;
+    return String(av).localeCompare(String(bv))*tableSortDir;
+  });
+  const total = filtered.length;
+  const pages = Math.ceil(total/PAGE_SIZE);
+  if(tablePage > pages && pages > 0) tablePage = pages;
+  const slice = filtered.slice((tablePage-1)*PAGE_SIZE, tablePage*PAGE_SIZE);
+
+  document.getElementById('table-info').textContent =
+    `Showing ${slice.length} of ${total} records${search?` matching "${tableSearch}"`:''}`;
+
+  const body = document.getElementById('table-body');
+  body.innerHTML = slice.length === 0
+    ? `<tr><td colspan="13" class="no-data">No records found.</td></tr>`
+    : slice.map(r=>`<tr>
+      <td><span class="tag">${r.OrderID}</span></td>
+      <td>${r.Date}</td><td>${r.City}</td><td>${r.Department}</td>
+      <td>${r.ItemName}</td><td>${r.SalesAssociate}</td>
+      <td>${r.BuyerSegment}</td><td>${r.PaymentType}</td><td>${r.OrderSource}</td>
+      <td style="text-align:right">${r.Units}</td>
+      <td style="text-align:right">$${r.PricePerUnit.toFixed(2)}</td>
+      <td style="text-align:right">${(r.PromoDiscount*100).toFixed(0)}%</td>
+      <td style="text-align:right;font-weight:600;color:#426A91">$${r.NetSales.toFixed(2)}</td>
+    </tr>`).join('');
+
+  // Pagination
+  const pag = document.getElementById('pagination');
+  pag.innerHTML = '';
+  const maxBtns = 7;
+  let start = Math.max(1, tablePage-Math.floor(maxBtns/2));
+  let end = Math.min(pages, start+maxBtns-1);
+  if(end-start < maxBtns-1) start = Math.max(1, end-maxBtns+1);
+
+  if(tablePage>1) pag.insertAdjacentHTML('beforeend',`<button onclick="goPage(${tablePage-1})">‹</button>`);
+  for(let i=start;i<=end;i++) pag.insertAdjacentHTML('beforeend',`<button class="${i===tablePage?'active':''}" onclick="goPage(${i})">${i}</button>`);
+  if(tablePage<pages) pag.insertAdjacentHTML('beforeend',`<button onclick="goPage(${tablePage+1})">›</button>`);
+  pag.insertAdjacentHTML('beforeend',`<span class="page-info">Page ${tablePage} of ${pages}</span>`);
+}
+
+function goPage(n) { tablePage=n; sortAndRenderTable(); }
+
+function sortTable(key) {
+  if(tableSortKey===key) tableSortDir*=-1; else { tableSortKey=key; tableSortDir=1; }
+  tablePage=1;
+  sortAndRenderTable();
+}
+
+function exportCSV() {
+  const search = tableSearch.toLowerCase();
+  let filtered = tableData.filter(r => !search || r.OrderID.toLowerCase().includes(search) || r.ItemName.toLowerCase().includes(search));
+  const header = 'OrderID,Date,City,Department,ItemName,SalesAssociate,BuyerSegment,PaymentType,OrderSource,Units,PricePerUnit,PromoDiscount%,NetSales\n';
+  const rows = filtered.map(r=>`${r.OrderID},${r.Date},${r.City},${r.Department},${r.ItemName},${r.SalesAssociate},${r.BuyerSegment},${r.PaymentType},${r.OrderSource},${r.Units},${r.PricePerUnit},${(r.PromoDiscount*100).toFixed(0)}%,${r.NetSales}`).join('\n');
+  const blob = new Blob([header+rows],{type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='retail_orders_filtered.csv'; a.click(); URL.revokeObjectURL(url);
+}
+
+// =====================================================================
+// DATA QUALITY
+// =====================================================================
+function renderDQ(d) {
+  const mnCount = MONTHS.map((_,i)=>DATA.filter(r=>r.Month===i+1).length);
+  mkChart('chart-dq-monthly','bar',MONTHS,[barDs('Records per Month',mnCount,null)].map(ds=>{ds.backgroundColor=MONTHS.map((_,i)=>PALETTE[i%PALETTE.length]);return ds;}),
+    {extra:{scales:{y:{ticks:{callback:v=>v}}}}});
+}
+
+// =====================================================================
+// NAV
+// =====================================================================
+document.querySelectorAll('#sidebar nav a').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    document.querySelectorAll('#sidebar nav a').forEach(x=>x.classList.remove('active'));
+    a.classList.add('active');
+    const pg = a.dataset.page;
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('page-'+pg).classList.add('active');
+  });
+});
+
+// =====================================================================
+// FILTER EVENTS
+// =====================================================================
+['f-month-from','f-month-to','f-city','f-dept','f-segment','f-payment','f-source','f-associate'].forEach(id=>{
+  document.getElementById(id).addEventListener('change', applyFilters);
+});
+
+document.getElementById('reset-btn').addEventListener('click',()=>{
+  document.getElementById('f-month-from').value='1';
+  document.getElementById('f-month-to').value='12';
+  ['f-city','f-dept'].forEach(id=>{
+    const el=document.getElementById(id);
+    [...el.options].forEach(o=>o.selected=false);
+  });
+  ['f-segment','f-payment','f-source','f-associate'].forEach(id=>document.getElementById(id).value='');
+  applyFilters();
+});
+
+document.getElementById('table-search').addEventListener('input',e=>{
+  tableSearch=e.target.value; tablePage=1; sortAndRenderTable();
+});
+
+// =====================================================================
+// INIT
+// =====================================================================
+populateFilters();
+filteredData = [...DATA];
+renderAll();
+</script>
+
+
+</body></html>
